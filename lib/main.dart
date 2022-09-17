@@ -11,7 +11,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // ignore: deprecated_member_use
   BlocOverrides.runZoned(
     () {
       runApp(const AppRoot());

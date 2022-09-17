@@ -86,7 +86,14 @@ class _DashBoardPageMainState extends State<DashBoardPageMain> {
                       ],
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        GoRouter.of(context).goNamed(
+                          RouteNames.messenger,
+                          queryParams: {
+                            "pathEmailRequest": widget.pathEmailRequest
+                          },
+                        );
+                      },
                       icon: state.unMessenger
                           ? const Icon(
                               Icons.mark_email_unread_outlined,

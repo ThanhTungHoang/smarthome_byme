@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smarthome_byme/ui/dashboard/dashboard_screen.dart';
+import 'package:smarthome_byme/ui/show_messenger/show_messenger_screen.dart';
 import 'package:smarthome_byme/ui/sign_in/sign_in_screen.dart';
 import 'package:smarthome_byme/ui/sign_up/sign_up_screen.dart';
 
@@ -35,6 +36,14 @@ class Routes {
         path: RoutePaths.dashBoard,
         builder: (BuildContext context, GoRouterState state) =>
             const DashBoardScreen(),
+      ),
+      GoRoute(
+        name: RouteNames.messenger,
+        path: RoutePaths.messenger,
+        builder: (BuildContext context, GoRouterState state) =>
+            ShowMessengerScreen(
+          pathEmailRequest: state.queryParams['pathEmailRequest'].toString(),
+        ),
       ),
     ],
   );

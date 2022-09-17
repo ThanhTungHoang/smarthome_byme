@@ -5,10 +5,11 @@ part 'messenger_model.g.dart';
 
 @JsonSerializable()
 class Messenger {
+  final String title;
   final String content;
   final bool seen;
 
-  Messenger(this.content, this.seen);
+  Messenger(this.content, this.seen, this.title);
   factory Messenger.fromJson(Map<String, dynamic> json) =>
       _$MessengerFromJson(json);
   Map<String, dynamic> toJson() => _$MessengerToJson(this);

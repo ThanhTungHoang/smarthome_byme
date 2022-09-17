@@ -124,6 +124,7 @@ class AuthRepository {
           },
           "Messenger": {
             "Welcome new user!": {
+              "title": "Welcome new user!",
               "content": "Hi, Thank you for using the app!",
               "seen": false,
             }

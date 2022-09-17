@@ -5,6 +5,7 @@ class RouteNames {
   static const String signIn = "signIn";
   static const String signUp = "signUp";
   static const String dashBoard = "dashBoard";
+  static const String messenger = "messenger";
   static const String addDevice = "addDevice";
   static const String setupWifiDevice = "setupWifiDevice";
 }
@@ -15,5 +16,6 @@ class RoutePaths {
   static const String signUp = "/signUp";
   static const String dashBoard = "/dashBoard";
   static const String addDevice = "/addDevice";
+  static const String messenger = "/messenger";
   static const String setupWifiDevice = "/setupWifiDevice";
 }
