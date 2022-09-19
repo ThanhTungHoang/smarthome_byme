@@ -97,7 +97,7 @@ class _ShowMessengerScreenState extends State<ShowMessengerScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 if (listMessenger[index].seen == true) ...[
-                                  const Icon(Icons.notifications_none_rounded),
+                                  const Icon(Icons.check),
                                 ],
                                 if (listMessenger[index].seen == false) ...[
                                   const Icon(
@@ -107,21 +107,55 @@ class _ShowMessengerScreenState extends State<ShowMessengerScreen> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(listMessenger[index].title),
-                                    Text(listMessenger[index].content),
+                                    Text(
+                                      listMessenger[index].title,
+                                      style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    Text(
+                                      listMessenger[index].content,
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w300),
+                                    ),
                                   ],
                                 ),
                                 const Spacer(),
                                 if (listMessenger[index].seen == true) ...[
                                   TextButton(
-                                    onPressed: () {},
-                                    child: const Text("Seen"),
+                                    onPressed: () async {
+                                      DatabaseReference ref =
+                                          FirebaseDatabase.instance.ref(
+                                              "$pathMessenger/${listMessenger[index].title}");
+                                      await ref.update(
+                                        {
+                                          "seen": false,
+                                        },
+                                      );
+                                    },
+                                    child: const Text(
+                                      "Mark as unread",
+                                      style: TextStyle(color: Colors.green),
+                                    ),
                                   ),
                                 ],
                                 if (listMessenger[index].seen == false) ...[
                                   TextButton(
-                                    onPressed: () {},
-                                    child: const Text("Mark as seen"),
+                                    onPressed: () async {
+                                      DatabaseReference ref =
+                                          FirebaseDatabase.instance.ref(
+                                              "$pathMessenger/${listMessenger[index].title}");
+                                      await ref.update(
+                                        {
+                                          "seen": true,
+                                        },
+                                      );
+                                    },
+                                    child: const Text(
+                                      "Mark read",
+                                      style: TextStyle(color: Colors.red),
+                                    ),
                                   ),
                                 ],
                               ],

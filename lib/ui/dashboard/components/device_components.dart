@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:smarthome_byme/core/app_colors.dart';
+import 'package:smarthome_byme/ui/dashboard/components/status_device.dart';
 
 class DeviceComponents extends StatefulWidget {
   final String nameDevice;
@@ -29,18 +32,16 @@ class _DeviceComponentsState extends State<DeviceComponents> {
   @override
   int a = 1;
   bool checkOnline = false;
+  @override
   Widget build(BuildContext context) {
-    // Future.delayed(const Duration(milliseconds: 2000), () {
-    //   if (checkOnline == widget.status) {
-    //     print("offline");
-    //   } else {
-    //     print("online");
-    //     checkOnline = widget.status;
-    //     checkOnline = true;
-    //     setState(() {});
-    //   }
-    //   // setState(() {
-    //   // });
+    // Future.delayed(const Duration(milliseconds: 3000), () async {
+    //   DatabaseReference ref = FirebaseDatabase.instance
+    //       .ref("${widget.pathDevice}/${widget.idDevice}");
+    //   await ref.update(
+    //     {
+    //       "ping": Random().nextInt(500),
+    //     },
+    //   );
     // });
     return Container(
       // width: 160,
@@ -166,23 +167,9 @@ class _DeviceComponentsState extends State<DeviceComponents> {
               ],
             ),
             const SizedBox(height: 20),
-// Future.delayed(const Duration(milliseconds: 500), () {
-//   setState(() {
-//   });
-// });
-            if (checkOnline == true) ...[
-              const Text(
-                "Online",
-                style: TextStyle(fontSize: 10, color: Colors.green),
-              ),
-            ],
-            if (checkOnline == false) ...[
-              const Text(
-                "Ofiline",
-                style: TextStyle(fontSize: 10, color: Colors.red),
-              ),
-            ],
-
+            StatusDevice(
+              ping: widget.ping,
+            ),
             Text(
               widget.nameDevice,
               style: const TextStyle(

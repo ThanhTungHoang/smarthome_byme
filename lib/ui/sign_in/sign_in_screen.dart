@@ -195,15 +195,15 @@ class _SignInScreenState extends State<SignInScreen> {
                                         .pushNamed(RouteNames.signUp);
                                   },
                                 ),
-                                Center(
-                                  child: TextButton(
-                                    onPressed: () {},
-                                    child: const Text(
-                                      "Are you admin? click me.",
-                                      style: TextStyle(color: kPrimaryColor),
-                                    ),
-                                  ),
-                                )
+                                // Center(
+                                //   child: TextButton(
+                                //     onPressed: () {},
+                                //     child: const Text(
+                                //       "Are you admin? click me.",
+                                //       style: TextStyle(color: kPrimaryColor),
+                                //     ),
+                                //   ),
+                                // )
                               ],
                             ),
                           ),

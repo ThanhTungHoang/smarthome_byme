@@ -10,13 +10,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  BlocOverrides.runZoned(
-    () {
-      runApp(const AppRoot());
-    },
-    blocObserver: SimpleBlocObserver(),
-  );
+  Bloc.observer = SimpleBlocObserver();
+  runApp(const AppRoot());
 }
 // goName: Đi ko trở lại
 // pushName: Đi để trở về

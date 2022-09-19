@@ -30,6 +30,8 @@ class _DashBoardPageMainState extends State<DashBoardPageMain> {
   late String value;
   late String pathDevice;
   late String pathRoom;
+  //
+
   @override
   void initState() {
     context.read<DashboardMainBloc>().add(DashboardMainRequest());
@@ -310,7 +312,6 @@ class _DashBoardPageMainState extends State<DashBoardPageMain> {
                 },
               ),
             ),
-            ElevatedButton(onPressed: () {}, child: const Text("get name")),
           ],
         );
       },
