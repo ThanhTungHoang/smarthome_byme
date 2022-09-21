@@ -4,7 +4,7 @@ import 'package:flutter_ripple/flutter_ripple.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smarthome_byme/BLoC/scan_device/cubit/scan_device_cubit.dart';
 import 'package:smarthome_byme/core/router/routes.dart';
-import 'package:smarthome_byme/ui/dashboard/screen_compoment/tab_device_components.dart';
+import 'package:smarthome_byme/views/dashboard/screen_compoment/tab_device_components.dart';
 
 class ScanDeviceScreen extends StatefulWidget {
   final String pathUser;

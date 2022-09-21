@@ -42,11 +42,11 @@ class _TabDeviceComponentsState extends State<TabDeviceComponents> {
             const Spacer(),
             ElevatedButton(
               onPressed: () {
-                GoRouter.of(context).pushNamed(RouteNames.setupWifiDevice,
-                    queryParams: {
-                      "nameDevice": widget.typeDevice,
-                      "wifiSelect": widget.listWifi.toString()
-                    });
+                // GoRouter.of(context).pushNamed(RouteNames.setupWifiDevice,
+                //     queryParams: {
+                //       "nameDevice": widget.typeDevice,
+                //       "wifiSelect": widget.listWifi.toString()
+                //     });
               },
               child: const Text("Kết nối"),
             ),

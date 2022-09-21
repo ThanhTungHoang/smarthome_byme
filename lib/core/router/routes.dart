@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:smarthome_byme/ui/dashboard/dashboard_screen.dart';
-import 'package:smarthome_byme/ui/show_messenger/show_messenger_screen.dart';
-import 'package:smarthome_byme/ui/sign_in/sign_in_screen.dart';
-import 'package:smarthome_byme/ui/sign_up/sign_up_screen.dart';
+import 'package:smarthome_byme/models/device/device_model.dart';
+import 'package:smarthome_byme/views/config_device/config_device_screen.dart';
+import 'package:smarthome_byme/views/config_room/config_room_screen.dart';
+import 'package:smarthome_byme/views/dashboard/dashboard_screen.dart';
+import 'package:smarthome_byme/views/show_messenger/show_messenger_screen.dart';
+import 'package:smarthome_byme/views/sign_in/sign_in_screen.dart';
+import 'package:smarthome_byme/views/sign_up/sign_up_screen.dart';
 
 part 'route_config.dart';
 
@@ -43,6 +46,24 @@ class Routes {
         builder: (BuildContext context, GoRouterState state) =>
             ShowMessengerScreen(
           pathEmailRequest: state.queryParams['pathEmailRequest'].toString(),
+        ),
+      ),
+      GoRoute(
+        name: RouteNames.configRoom,
+        path: RoutePaths.configRoom,
+        builder: (BuildContext context, GoRouterState state) =>
+            ConfigRoomScreen(
+          pathEmailRequest: state.queryParams['pathEmailRequest'].toString(),
+        ),
+      ),
+      GoRoute(
+        name: RouteNames.configDevice,
+        path: RoutePaths.configDevice,
+        builder: (BuildContext context, GoRouterState state) =>
+            ConfigDeviceScreen(
+          pathEmailRequest: state.queryParams['pathEmailRequest'].toString(),
+          listDevice: state.queryParams['listDevice'] as List<Device>,
+          listRoom: state.queryParams['listRoom'] as List<String>,
         ),
       ),
     ],

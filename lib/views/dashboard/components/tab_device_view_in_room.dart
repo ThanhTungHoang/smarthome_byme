@@ -2,26 +2,27 @@ import 'dart:convert';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:smarthome_byme/models/device/device_model.dart';
-import 'package:smarthome_byme/ui/dashboard/components/device_components.dart';
+import 'package:smarthome_byme/views/dashboard/components/device_components.dart';
 
-class TabDeviceView extends StatefulWidget {
-  final String nameRoom;
-  final String path;
-  const TabDeviceView({Key? key, required this.nameRoom, required this.path})
+class TabDeviceViewInRoom extends StatefulWidget {
+  final String listRoom;
+  final String pathRoom;
+  const TabDeviceViewInRoom(
+      {Key? key, required this.listRoom, required this.pathRoom})
       : super(key: key);
 
   @override
-  State<TabDeviceView> createState() => _TabDeviceViewState();
+  State<TabDeviceViewInRoom> createState() => _TabDeviceViewInRoomState();
 }
 
-class _TabDeviceViewState extends State<TabDeviceView> {
+class _TabDeviceViewInRoomState extends State<TabDeviceViewInRoom> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: Theme.of(context).colorScheme.secondary,
       body: StreamBuilder<DatabaseEvent>(
         stream: FirebaseDatabase.instance
-            .ref(widget.path)
+            .ref(widget.pathRoom)
             .onValue
             .asBroadcastStream(),
         builder: (context, snapshot) {
@@ -38,7 +39,7 @@ class _TabDeviceViewState extends State<TabDeviceView> {
                     ),
                   );
 
-                  if (device.room == widget.nameRoom) {
+                  if (device.room == widget.listRoom) {
                     deviceList.add(
                       Device.fromJson(
                         jsonDecode(
@@ -50,10 +51,22 @@ class _TabDeviceViewState extends State<TabDeviceView> {
                 },
               );
             } catch (e) {
-              return const Text("No device");
+              return const Center(
+                child: Text("No devices connected to the room yet!"),
+              );
             }
             if (deviceList.isEmpty) {
-              return const Text("No Device");
+              return Center(
+                child: Column(
+                  children: [
+                    const Text("No device installed!"),
+                    TextButton(
+                      onPressed: () {},
+                      child: const Text("Click here to add a device."),
+                    ),
+                  ],
+                ),
+              );
             }
             return GridView.builder(
               itemCount: deviceList.length,
@@ -64,7 +77,7 @@ class _TabDeviceViewState extends State<TabDeviceView> {
                 mainAxisSpacing: 16,
               ),
               itemBuilder: (BuildContext context, int index) {
-                if (widget.nameRoom == deviceList[index].room) {
+                if (widget.listRoom == deviceList[index].room) {
                   return DeviceComponents(
                     idDevice: deviceList[index].idDevice,
                     nameDevice: deviceList[index].nameDevice,
@@ -74,12 +87,14 @@ class _TabDeviceViewState extends State<TabDeviceView> {
                     typeDevice: deviceList[index].typeDevice,
                   );
                 } else {
-                  return const Text("No Device");
+                  return const Center(
+                    child: Text("No devices connected to the room yet!"),
+                  );
                 }
               },
             );
           }
-          return const Text("Error?????");
+          return const Center(child: CircularProgressIndicator());
         },
       ),
     );

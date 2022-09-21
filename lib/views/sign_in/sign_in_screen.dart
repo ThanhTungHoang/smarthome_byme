@@ -173,7 +173,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       elevation: 0,
-                                      primary: kPrimaryColor,
+                                      backgroundColor: kPrimaryColor,
                                       shape: const StadiumBorder(),
                                       maximumSize:
                                           const Size(double.infinity, 56),

@@ -1,10 +1,8 @@
-import 'dart:math';
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:smarthome_byme/core/app_colors.dart';
-import 'package:smarthome_byme/ui/dashboard/components/status_device.dart';
+import 'package:smarthome_byme/views/dashboard/components/status_device.dart';
 
 class DeviceComponents extends StatefulWidget {
   final String nameDevice;
@@ -30,19 +28,7 @@ class DeviceComponents extends StatefulWidget {
 
 class _DeviceComponentsState extends State<DeviceComponents> {
   @override
-  int a = 1;
-  bool checkOnline = false;
-  @override
   Widget build(BuildContext context) {
-    // Future.delayed(const Duration(milliseconds: 3000), () async {
-    //   DatabaseReference ref = FirebaseDatabase.instance
-    //       .ref("${widget.pathDevice}/${widget.idDevice}");
-    //   await ref.update(
-    //     {
-    //       "ping": Random().nextInt(500),
-    //     },
-    //   );
-    // });
     return Container(
       // width: 160,
       // height: 135,

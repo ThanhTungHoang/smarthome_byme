@@ -16,10 +16,11 @@ class _StatusDeviceState extends State<StatusDevice> {
   int _start = 10;
   bool checkOnline = false;
   late int oldPing;
+  late Timer _timer;
 
   void startTimer() {
     const oneSec = Duration(seconds: 1);
-    Timer.periodic(
+    _timer = Timer.periodic(
       oneSec,
       (Timer timer) {
         if (_start == 0) {
@@ -52,6 +53,12 @@ class _StatusDeviceState extends State<StatusDevice> {
     oldPing = widget.ping;
     startTimer();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   @override

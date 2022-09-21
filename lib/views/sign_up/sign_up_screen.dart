@@ -5,8 +5,8 @@ import 'package:smarthome_byme/BLoC/auth_bloc/auth_bloc.dart';
 import 'package:smarthome_byme/core/constants.dart';
 import 'package:smarthome_byme/core/router/routes.dart';
 import 'package:smarthome_byme/models/signup/signup_model.dart';
-import 'package:smarthome_byme/ui/sign_in/components/already_have_an_account_acheck.dart';
-import 'package:smarthome_byme/ui/sign_in/components/textfield_auth.dart';
+import 'package:smarthome_byme/views/sign_in/components/already_have_an_account_acheck.dart';
+import 'package:smarthome_byme/views/sign_in/components/textfield_auth.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -173,7 +173,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   elevation: 0,
-                                  primary: kPrimaryColor,
+                                  backgroundColor: kPrimaryColor,
                                   shape: const StadiumBorder(),
                                   maximumSize: const Size(double.infinity, 56),
                                   minimumSize: const Size(double.infinity, 56),

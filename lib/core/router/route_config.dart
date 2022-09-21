@@ -7,7 +7,8 @@ class RouteNames {
   static const String dashBoard = "dashBoard";
   static const String messenger = "messenger";
   static const String addDevice = "addDevice";
-  static const String setupWifiDevice = "setupWifiDevice";
+  static const String configRoom = "configRoom";
+  static const String configDevice = "configDevice";
 }
 
 class RoutePaths {
@@ -17,5 +18,6 @@ class RoutePaths {
   static const String dashBoard = "/dashBoard";
   static const String addDevice = "/addDevice";
   static const String messenger = "/messenger";
-  static const String setupWifiDevice = "/setupWifiDevice";
+  static const String configRoom = "/configRoom";
+  static const String configDevice = "/configDevice";
 }

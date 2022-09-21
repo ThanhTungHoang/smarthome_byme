@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smarthome_byme/BLoC/auth_bloc/auth_bloc.dart';
 import 'package:smarthome_byme/core/constants.dart';
-import 'package:smarthome_byme/ui/sign_in/components/textfield_auth.dart';
+import 'package:smarthome_byme/views/sign_in/components/textfield_auth.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);

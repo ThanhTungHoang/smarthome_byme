@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smarthome_byme/BLoC/dashboard_bloc/dashboard_bloc.dart';
-import 'package:smarthome_byme/ui/dashboard/pages/dashboard_page_enegry.dart';
-import 'package:smarthome_byme/ui/dashboard/pages/dashboard_page_main.dart';
-import 'package:smarthome_byme/ui/dashboard/pages/dashboard_page_user.dart';
+import 'package:smarthome_byme/views/dashboard/pages/dashboard_page_enegry.dart';
+import 'package:smarthome_byme/views/dashboard/pages/dashboard_page_main.dart';
+import 'package:smarthome_byme/views/dashboard/pages/dashboard_page_user.dart';
 
 void main() {
   runApp(const DashBoardScreen());
@@ -75,6 +75,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                         if (_selectedIndex == 0) ...[
                           DashBoardPageMain(
                             pathEmailRequest: state.pathEmail,
+                            nameUser: state.nameUser,
+                            content: state.content,
+                            checkUnMessenger: state.unMessenger,
                           ),
                         ],
                         if (_selectedIndex == 1) ...[

@@ -4,22 +4,22 @@ import 'package:go_router/go_router.dart';
 import 'package:smarthome_byme/core/router/routes.dart';
 
 class DialogAddRoom extends StatefulWidget {
-  final String path;
-  final List<String> nameRoom;
-  const DialogAddRoom({Key? key, required this.path, required this.nameRoom})
+  final String pathEmailRequest;
+  final List<String> listRoom;
+  const DialogAddRoom(
+      {Key? key, required this.pathEmailRequest, required this.listRoom})
       : super(key: key);
 
   @override
   State<DialogAddRoom> createState() => _DialogAddRoomState();
 }
 
-// setState
-// Only rebuild dialog, not rebuild all screen
 class _DialogAddRoomState extends State<DialogAddRoom> {
   late String textFieldAddRoom;
   final _text = TextEditingController();
   bool _validate = false;
   bool _enableButton = false;
+  late String pathRoom;
 
   @override
   void dispose() {
@@ -29,6 +29,7 @@ class _DialogAddRoomState extends State<DialogAddRoom> {
 
   @override
   Widget build(BuildContext context) {
+    pathRoom = "admin/${widget.pathEmailRequest}/Room/";
     return AlertDialog(
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
@@ -84,8 +85,8 @@ class _DialogAddRoomState extends State<DialogAddRoom> {
                   onPressed: _enableButton
                       ? () async {
                           bool flag = false;
-                          for (int i = 0; i < widget.nameRoom.length; i++) {
-                            if (widget.nameRoom[i] == textFieldAddRoom) {
+                          for (int i = 0; i < widget.listRoom.length; i++) {
+                            if (widget.listRoom[i] == textFieldAddRoom) {
                               flag = true;
                             }
                           }
@@ -98,8 +99,8 @@ class _DialogAddRoomState extends State<DialogAddRoom> {
                               _validate = false;
                             });
 
-                            DatabaseReference ref = FirebaseDatabase.instance
-                                .ref("${widget.path}/Room/");
+                            DatabaseReference ref =
+                                FirebaseDatabase.instance.ref(pathRoom);
                             await ref.update(
                               {
                                 _text.text: '',
