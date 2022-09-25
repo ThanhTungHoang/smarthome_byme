@@ -24,4 +24,6 @@ class DashboardLoaded extends DashboardState {
       required this.unMessenger});
 }
 
+class DashboardLogout extends DashboardState {}
+
 class DashboardError extends DashboardState {}

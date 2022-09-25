@@ -181,7 +181,7 @@ class _ScanDeviceScreenState extends State<ScanDeviceScreen> {
                             shrinkWrap: false,
                             itemCount: state.listDevice.length,
                             itemBuilder: (BuildContext context, int index) {
-                              if (state.listDevice.length == 0) {
+                              if (state.listDevice.isEmpty) {
                                 const Text("No device, Tru scan!");
                               } else {
                                 return TabDeviceComponents(
@@ -191,7 +191,7 @@ class _ScanDeviceScreenState extends State<ScanDeviceScreen> {
                                       state.listDevice[index].nameDevice,
                                 );
                               }
-                              return Text("erre?");
+                              return const Text("erre?");
                             },
                           ),
                         )

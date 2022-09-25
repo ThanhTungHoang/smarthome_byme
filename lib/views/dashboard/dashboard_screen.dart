@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:smarthome_byme/BLoC/dashboard_bloc/dashboard_bloc.dart';
+import 'package:smarthome_byme/core/router/routes.dart';
 import 'package:smarthome_byme/views/dashboard/pages/dashboard_page_enegry.dart';
 import 'package:smarthome_byme/views/dashboard/pages/dashboard_page_main.dart';
 import 'package:smarthome_byme/views/dashboard/pages/dashboard_page_user.dart';
@@ -22,6 +25,7 @@ class _DashBoardScreenState extends State<DashBoardScreen>
   bool get wantKeepAlive => true;
   @override
   void initState() {
+        context.read<DashboardBloc>().add(DashboardCkeckLogout());
     context.read<DashboardBloc>().add(DashboardRequest());
     super.initState();
   }
@@ -35,7 +39,13 @@ class _DashBoardScreenState extends State<DashBoardScreen>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return BlocBuilder<DashboardBloc, DashboardState>(
+
+    return BlocConsumer<DashboardBloc, DashboardState>(
+      listener: (context, state) {
+        if (state is DashboardLogout) {
+          GoRouter.of(context).goNamed(RouteNames.signIn);
+        }
+      },
       builder: (context, state) {
         return Scaffold(
           bottomNavigationBar: BottomNavigationBar(

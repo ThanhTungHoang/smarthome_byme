@@ -17,10 +17,10 @@ class DialogSelectionRoom extends StatefulWidget {
 }
 
 class _DialogSelectionRoomState extends State<DialogSelectionRoom> {
-  bool _validate = false;
+  bool validate = false;
   bool _enableButton = false;
   List<String> listRoom = [];
-  List<bool> _value = [];
+  List<bool> value = [];
   int count = 0;
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class _DialogSelectionRoomState extends State<DialogSelectionRoom> {
                       dataRoom.forEach(
                         (key, values) {
                           listRoom.add(key);
-                          _value.add(false);
+                          value.add(false);
                         },
                       );
                     } catch (e) {
@@ -78,14 +78,14 @@ class _DialogSelectionRoomState extends State<DialogSelectionRoom> {
                           autofocus: false,
                           activeColor: Colors.green,
                           checkColor: Colors.white,
-                          selected: _value[index],
-                          value: _value[index],
-                          onChanged: (value) {
-                            _value[index] = value!;
+                          selected: value[index],
+                          value: value[index],
+                          onChanged: (valueOnChanged) {
+                            value[index] = valueOnChanged!;
                             count = 0;
                             _enableButton = false;
-                            for (int i = 0; i < _value.length; i++) {
-                              if (_value[i] == true) {
+                            for (int i = 0; i < value.length; i++) {
+                              if (value[i] == true) {
                                 count++;
                                 if (count == 1) {
                                   _enableButton = true;
@@ -116,11 +116,11 @@ class _DialogSelectionRoomState extends State<DialogSelectionRoom> {
 
                         if (flag == true) {
                           setState(() {
-                            _validate = true;
+                            validate = true;
                           });
                         } else {
                           setState(() {
-                            _validate = false;
+                            validate = false;
                           });
                         }
                         if (!mounted) return;

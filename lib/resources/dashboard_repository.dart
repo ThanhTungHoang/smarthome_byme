@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:smarthome_byme/models/messenger/messenger_model.dart';
 
 class DashBoardRepository {
+  final storage = const FlutterSecureStorage();
   final ref = FirebaseDatabase.instance.ref();
   final email = FirebaseAuth.instance.currentUser?.email;
   final find = '.';
@@ -11,6 +13,12 @@ class DashBoardRepository {
   final List<Messenger> messenger = [];
   bool unMessages = false;
   late final String userName;
+  Future<String> getInforUser() async {
+    String? pathEmailRequest = await storage.read(key: "pathEmailRequest");
+    String? emailUser = await storage.read(key: "emailUser");
+    String? nameUser = await storage.read(key: "nameUser");
+    return "$pathEmailRequest-$emailUser-$nameUser";
+  }
 
   Future<bool> checkUnMessenger() async {
     final pathEmail = email!.replaceAll(find, replaceWith);
@@ -42,22 +50,7 @@ class DashBoardRepository {
     return unMessages;
   }
 
-  Future getUserName() async {
-    final pathEmail = email!.replaceAll(find, replaceWith);
 
-    final response = await ref.child('admin/$pathEmail/Infor/Name').get();
-    final userName = response.value;
-    if (userName == null) {
-      return "User";
-    } else {
-      return userName;
-    }
-  }
-
-  Future getPathEmailRequest() async {
-    final pathEmail = email!.replaceAll(find, replaceWith);
-    return pathEmail;
-  }
 
   Future<List> getListRoom() async {
     final List listRoom = [];

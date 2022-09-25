@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:plugin_wifi_connect/plugin_wifi_connect.dart';
 import 'package:smarthome_byme/models/device_scan/device_scan_model.dart';
-import 'package:smarthome_byme/models/text_field_select_wifi/text_field_select_wifi_model.dart';
 import 'package:wifi_scan/wifi_scan.dart';
 
 part 'scan_device_event.dart';

@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:smarthome_byme/models/login/login_model.dart';
 import 'package:smarthome_byme/models/signup/signup_model.dart';
 import 'package:smarthome_byme/resources/auth_repository.dart';
@@ -14,16 +15,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository authRepository;
 
   AuthBloc({required this.authRepository}) : super(UnAuthenticated()) {
-    on<CheckLogin>(
-      (event, emit) {
-        if (FirebaseAuth.instance.currentUser != null) {
-          emit(Authenticated());
-        } else {
-          emit(UnAuthenticated());
-        }
-      },
-    );
-
     on<SignInRequested>(
       (event, emit) async {
         emit(Loading());
@@ -35,6 +26,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         log("response in bloc: $response");
 
         if (response == "login_success-true") {
+          //
+          //
           emit(Authenticated());
         }
         if (response == "login_success-false") {
@@ -103,8 +96,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SignOutRequested>(
       (event, emit) async {
         emit(Loading());
+        const storage = FlutterSecureStorage();
+        
         await authRepository.signOut();
         emit(UnAuthenticated());
+        await storage.deleteAll();
       },
     );
     on<ResetState>(

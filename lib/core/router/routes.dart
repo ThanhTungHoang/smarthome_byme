@@ -12,7 +12,7 @@ part 'route_config.dart';
 
 class Routes {
   static GoRouter route = GoRouter(
-    initialLocation: RoutePaths.signIn,
+    initialLocation: RoutePaths.dashBoard,
     urlPathStrategy: UrlPathStrategy.path,
     debugLogDiagnostics: true,
     redirect: (state) {

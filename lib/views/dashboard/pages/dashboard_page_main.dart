@@ -3,9 +3,8 @@ import 'dart:convert';
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
-import 'package:smarthome_byme/BLoC/dashboard_bloc/dashboard_bloc.dart';
 import 'package:smarthome_byme/models/device/device_model.dart';
 import '../../../core/router/routes.dart';
 import '../components/device_components.dart';
@@ -39,10 +38,9 @@ class _DashBoardPageMainState extends State<DashBoardPageMain>
   late String value;
   late String pathDevice;
   late String pathRoom;
-
+  final storage = const FlutterSecureStorage();
   @override
   void initState() {
-    // context.read<DashboardBloc>().add(DashboardRequest());
     super.initState();
   }
 

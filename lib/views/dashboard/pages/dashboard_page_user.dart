@@ -18,7 +18,7 @@ class _DashBoardPageUserState extends State<DashBoardPageUser> {
       children: [
         const Text("Màn hình hiện Thông tin tài khoản"),
         TextButton(
-            onPressed: () {
+            onPressed: () async {
               context.read<AuthBloc>().add(SignOutRequested());
               GoRouter.of(context).goNamed(RouteNames.signIn);
             },

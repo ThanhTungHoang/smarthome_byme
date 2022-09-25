@@ -1,11 +1,13 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:smarthome_byme/models/login/login_model.dart';
 import 'package:smarthome_byme/models/signup/signup_model.dart';
 
 class AuthRepository {
   final _firebaseAuth = FirebaseAuth.instance;
+  final storage = const FlutterSecureStorage();
 
   Future<String> signUp(SignUpParam signUpParam) async {
     try {
@@ -41,6 +43,16 @@ class AuthRepository {
       if (response.user?.emailVerified == false) {
         await FirebaseAuth.instance.currentUser!.sendEmailVerification();
       }
+      final email = FirebaseAuth.instance.currentUser?.email;
+      await storage.write(key: "emailUser", value: email);
+      final pathEmail = email!.replaceAll('.', '_');
+      final ref = FirebaseDatabase.instance.ref();
+      final responseName = await ref.child('admin/$pathEmail/Infor/Name').get();
+      final String userName = responseName.value.toString();
+      await storage.write(key: "pathEmailRequest", value: pathEmail);
+      await storage.write(key: "emailUser", value: email);
+      await storage.write(key: "nameUser", value: userName);
+      // saveInforUser();
       return "login_success-${response.user!.emailVerified.toString()}";
     } on FirebaseAuthException catch (e) {
       log(e.toString());
@@ -79,6 +91,7 @@ class AuthRepository {
   }
 
   Future<String> signOut() async {
+    await storage.deleteAll();
     await _firebaseAuth.signOut();
     return "signOut_Done";
   }

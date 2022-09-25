@@ -24,7 +24,6 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   void initState() {
-    context.read<AuthBloc>().add(CheckLogin());
     context.read<AuthBloc>().add(ResetState());
     super.initState();
   }

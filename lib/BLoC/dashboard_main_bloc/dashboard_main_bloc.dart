@@ -9,37 +9,37 @@ class DashboardMainBloc extends Bloc<DashboardMainEvent, DashboardMainState> {
   final DashBoardRepository dashBoardRepository;
   DashboardMainBloc({required this.dashBoardRepository})
       : super(DashboardMainInitial()) {
-    on<DashboardMainRequest>((event, emit) async {
-      emit(DashboardMainLoading());
-      DateTime now = DateTime.now();
-      final int timeHour;
-      late String responseNameUser;
-      final String response;
-      final checkUnMessenger = await dashBoardRepository.checkUnMessenger();
-      if (now.hour == 0) {
-        timeHour = 24;
-      } else {
-        timeHour = now.hour;
-      }
-      try {
-        response = await dashBoardRepository.getUserName();
-        responseNameUser = response.toString();
-      } catch (e) {
-        responseNameUser = "Hi User";
-      }
+    // on<DashboardMainRequest>((event, emit) async {
+    //   emit(DashboardMainLoading());
+    //   DateTime now = DateTime.now();
+    //   final int timeHour;
+    //   late String responseNameUser;
+    //   final String response;
+    //   final checkUnMessenger = await dashBoardRepository.checkUnMessenger();
+    //   if (now.hour == 0) {
+    //     timeHour = 24;
+    //   } else {
+    //     timeHour = now.hour;
+    //   }
+    //   try {
+    //     response = await dashBoardRepository.getUserName();
+    //     responseNameUser = response.toString();
+    //   } catch (e) {
+    //     responseNameUser = "Hi User";
+    //   }
 
-      if (timeHour >= 1 && timeHour <= 12) {
-        emit(DashboardMainLoaded(
-            responseNameUser, "Good morning!", checkUnMessenger));
-      }
-      if (timeHour >= 13 && timeHour <= 18) {
-        emit(DashboardMainLoaded(
-            responseNameUser, "Good afternoon!", checkUnMessenger));
-      }
-      if (timeHour >= 19 && timeHour <= 24) {
-        emit(DashboardMainLoaded(
-            responseNameUser, "Good everning!", checkUnMessenger));
-      }
-    });
+    //   if (timeHour >= 1 && timeHour <= 12) {
+    //     emit(DashboardMainLoaded(
+    //         responseNameUser, "Good morning!", checkUnMessenger));
+    //   }
+    //   if (timeHour >= 13 && timeHour <= 18) {
+    //     emit(DashboardMainLoaded(
+    //         responseNameUser, "Good afternoon!", checkUnMessenger));
+    //   }
+    //   if (timeHour >= 19 && timeHour <= 24) {
+    //     emit(DashboardMainLoaded(
+    //         responseNameUser, "Good everning!", checkUnMessenger));
+    //   }
+    // });
   }
 }
