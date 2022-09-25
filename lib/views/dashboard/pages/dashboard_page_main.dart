@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:smarthome_byme/BLoC/dashboard_bloc/dashboard_bloc.dart';
 import 'package:smarthome_byme/models/device/device_model.dart';
 import '../../../core/router/routes.dart';
 import '../components/device_components.dart';
@@ -40,7 +42,7 @@ class _DashBoardPageMainState extends State<DashBoardPageMain>
 
   @override
   void initState() {
-    // context.read<DashboardMainBloc>().add(DashboardMainRequest());
+    // context.read<DashboardBloc>().add(DashboardRequest());
     super.initState();
   }
 
@@ -310,8 +312,6 @@ class _DashBoardPageMainState extends State<DashBoardPageMain>
                                 RouteNames.configDevice,
                                 queryParams: {
                                   "pathEmailRequest": widget.pathEmailRequest,
-                                  "listDevice": listDevice,
-                                  "listRoom": listRoom,
                                 },
                               );
                             },
@@ -327,6 +327,35 @@ class _DashBoardPageMainState extends State<DashBoardPageMain>
               );
             },
           ),
+        ),
+        ElevatedButton(
+          onPressed: () async {
+            DatabaseReference ref = FirebaseDatabase.instance.ref(pathDevice);
+
+            await ref.update(
+              {
+                "123Device": {
+                  "typeDevice": "Switch",
+                  "nameDevice": "Cong tac",
+                  "ping": 3,
+                  "toggle": true,
+                  "idDevice": "123Device",
+                  "lock": "",
+                  "temp": "",
+                  "humi": "",
+                  "co2": "",
+                  "red": "",
+                  "green": "",
+                  "blue": "",
+                  "voltage": "",
+                  "ampe": "",
+                  "wat": "",
+                  "room": "",
+                }
+              },
+            );
+          },
+          child: const Text("fake device"),
         ),
       ],
     );

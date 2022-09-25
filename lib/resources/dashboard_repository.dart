@@ -10,23 +10,30 @@ class DashBoardRepository {
   final replaceWith = '_';
   final List<Messenger> messenger = [];
   bool unMessages = false;
+  late final String userName;
 
   Future<bool> checkUnMessenger() async {
     final pathEmail = email!.replaceAll(find, replaceWith);
-    final notificationRawData =
-        await ref.child('admin/$pathEmail/Messenger/').get();
-    final notificationDaTa = notificationRawData.value as Map<dynamic, dynamic>;
-    notificationDaTa.forEach(
-      (key, values) {
-        messenger.add(
-          Messenger.fromJson(
-            jsonDecode(
-              jsonEncode(values),
+    try {
+      final notificationRawData =
+          await ref.child('admin/$pathEmail/Messenger/').get();
+      final notificationDaTa =
+          notificationRawData.value as Map<dynamic, dynamic>;
+      notificationDaTa.forEach(
+        (key, values) {
+          messenger.add(
+            Messenger.fromJson(
+              jsonDecode(
+                jsonEncode(values),
+              ),
             ),
-          ),
-        );
-      },
-    );
+          );
+        },
+      );
+    } catch (e) {
+      return unMessages;
+    }
+
     for (int i = 0; i < messenger.length; i++) {
       if (messenger[i].seen == false) {
         unMessages = true;
@@ -36,14 +43,14 @@ class DashBoardRepository {
   }
 
   Future getUserName() async {
-    checkUnMessenger();
     final pathEmail = email!.replaceAll(find, replaceWith);
 
-    try {
-      final userName = await ref.child('admin/$pathEmail/Infor/Name').get();
-      return userName.value;
-    } catch (e) {
+    final response = await ref.child('admin/$pathEmail/Infor/Name').get();
+    final userName = response.value;
+    if (userName == null) {
       return "User";
+    } else {
+      return userName;
     }
   }
 

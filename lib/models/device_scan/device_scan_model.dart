@@ -4,11 +4,10 @@ part 'device_scan_model.g.dart';
 
 @JsonSerializable()
 class DeviceScan {
+  final String nameDevice;
   final String typeDevice;
-  final double x;
-  final double y;
 
-  DeviceScan(this.typeDevice, this.x, this.y);
+  DeviceScan(this.nameDevice, this.typeDevice);
 
   factory DeviceScan.fromJson(Map<String, dynamic> json) =>
       _$DeviceScanFromJson(json);
@@ -16,3 +15,4 @@ class DeviceScan {
 }
 
 //flutter pub run build_runner build
+//flutter pub run build_runner build --delete-conflicting-outputs

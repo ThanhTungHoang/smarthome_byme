@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:smarthome_byme/models/device/device_model.dart';
 import 'package:smarthome_byme/views/config_device/config_device_screen.dart';
+import 'package:smarthome_byme/views/config_device/scan_device_screen.dart';
 import 'package:smarthome_byme/views/config_room/config_room_screen.dart';
 import 'package:smarthome_byme/views/dashboard/dashboard_screen.dart';
 import 'package:smarthome_byme/views/show_messenger/show_messenger_screen.dart';
@@ -62,8 +62,14 @@ class Routes {
         builder: (BuildContext context, GoRouterState state) =>
             ConfigDeviceScreen(
           pathEmailRequest: state.queryParams['pathEmailRequest'].toString(),
-          listDevice: state.queryParams['listDevice'] as List<Device>,
-          listRoom: state.queryParams['listRoom'] as List<String>,
+        ),
+      ),
+      GoRoute(
+        name: RouteNames.scanDevice,
+        path: RoutePaths.scanDevice,
+        builder: (BuildContext context, GoRouterState state) =>
+            ScanDeviceScreen(
+          pathEmailRequest: state.queryParams['pathEmailRequest'].toString(),
         ),
       ),
     ],

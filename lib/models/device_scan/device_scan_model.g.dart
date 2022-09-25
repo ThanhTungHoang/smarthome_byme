@@ -7,14 +7,12 @@ part of 'device_scan_model.dart';
 // **************************************************************************
 
 DeviceScan _$DeviceScanFromJson(Map<String, dynamic> json) => DeviceScan(
+      json['nameDevice'] as String,
       json['typeDevice'] as String,
-      (json['x'] as num).toDouble(),
-      (json['y'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$DeviceScanToJson(DeviceScan instance) =>
     <String, dynamic>{
+      'nameDevice': instance.nameDevice,
       'typeDevice': instance.typeDevice,
-      'x': instance.x,
-      'y': instance.y,
     };

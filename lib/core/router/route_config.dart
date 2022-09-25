@@ -9,6 +9,7 @@ class RouteNames {
   static const String addDevice = "addDevice";
   static const String configRoom = "configRoom";
   static const String configDevice = "configDevice";
+  static const String scanDevice = "scanDevice";
 }
 
 class RoutePaths {
@@ -20,4 +21,5 @@ class RoutePaths {
   static const String messenger = "/messenger";
   static const String configRoom = "/configRoom";
   static const String configDevice = "/configDevice";
+  static const String scanDevice = "/scanDevice";
 }

@@ -16,7 +16,10 @@ class DashBoardScreen extends StatefulWidget {
   State<DashBoardScreen> createState() => _DashBoardScreenState();
 }
 
-class _DashBoardScreenState extends State<DashBoardScreen> {
+class _DashBoardScreenState extends State<DashBoardScreen>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
   @override
   void initState() {
     context.read<DashboardBloc>().add(DashboardRequest());
@@ -31,6 +34,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocBuilder<DashboardBloc, DashboardState>(
       builder: (context, state) {
         return Scaffold(

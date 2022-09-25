@@ -1,23 +1,23 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:smarthome_byme/models/device/device_model.dart';
 
-class DialogChangeNameRoom extends StatefulWidget {
-  final String pathRoom;
-  final String nameRoom;
-  final List listRoom;
-  const DialogChangeNameRoom(
-      {Key? key,
-      required this.pathRoom,
-      required this.nameRoom,
-      required this.listRoom})
-      : super(key: key);
+class DialogReNameDevice extends StatefulWidget {
+  final String pathDevice;
+  final String idDevice;
+  final List<Device> listDevice;
+  const DialogReNameDevice(
+      {super.key,
+      required this.pathDevice,
+      required this.idDevice,
+      required this.listDevice});
 
   @override
-  State<DialogChangeNameRoom> createState() => _DialogChangeNameRoomState();
+  State<DialogReNameDevice> createState() => _DialogReNameDeviceState();
 }
 
-class _DialogChangeNameRoomState extends State<DialogChangeNameRoom> {
-  late String textFieldAddRoom;
+class _DialogReNameDeviceState extends State<DialogReNameDevice> {
+  late String textFieldChangeNameDevice;
   final _text = TextEditingController();
   bool _validate = false;
   bool _enableButton = false;
@@ -45,7 +45,7 @@ class _DialogChangeNameRoomState extends State<DialogChangeNameRoom> {
             maxLength: 15,
             controller: _text,
             decoration: InputDecoration(
-              errorText: _validate ? 'Phòng này đã tổn tại!' : null,
+              errorText: _validate ? 'Name already exists!' : null,
               errorBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.redAccent),
               ),
@@ -54,7 +54,7 @@ class _DialogChangeNameRoomState extends State<DialogChangeNameRoom> {
               ),
             ),
             onChanged: ((value) {
-              textFieldAddRoom = value;
+              textFieldChangeNameDevice = value;
               if (value.isNotEmpty) {
                 setState(() {
                   _enableButton = true;
@@ -66,6 +66,7 @@ class _DialogChangeNameRoomState extends State<DialogChangeNameRoom> {
               }
             }),
           ),
+          const SizedBox(height: 5),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -73,8 +74,9 @@ class _DialogChangeNameRoomState extends State<DialogChangeNameRoom> {
                 onPressed: _enableButton
                     ? () async {
                         bool flag = false;
-                        for (int i = 0; i < widget.listRoom.length; i++) {
-                          if (widget.listRoom[i] == textFieldAddRoom) {
+                        for (int i = 0; i < widget.listDevice.length; i++) {
+                          if (widget.listDevice[i].nameDevice ==
+                              textFieldChangeNameDevice) {
                             flag = true;
                           }
                         }
@@ -86,14 +88,12 @@ class _DialogChangeNameRoomState extends State<DialogChangeNameRoom> {
                           setState(() {
                             _validate = false;
                           });
-                          FirebaseDatabase.instance
-                              .ref('${widget.pathRoom}/${widget.nameRoom}/')
-                              .remove();
-                          DatabaseReference ref =
-                              FirebaseDatabase.instance.ref(widget.pathRoom);
+
+                          DatabaseReference ref = FirebaseDatabase.instance
+                              .ref("${widget.pathDevice}${widget.idDevice}");
                           await ref.update(
                             {
-                              _text.text: '',
+                              "nameDevice": _text.text,
                             },
                           );
                         }
