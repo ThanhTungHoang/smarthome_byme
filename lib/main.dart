@@ -13,5 +13,3 @@ void main() async {
   Bloc.observer = SimpleBlocObserver();
   runApp(const AppRoot());
 }
-// goName: Đi ko trở lại
-// pushName: Đi để trở về

@@ -173,60 +173,51 @@ class _DashBoardPageMainState extends State<DashBoardPageMain>
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               listDevice.clear();
+
+                              final deviceData = (snapshot.data!).snapshot.value
+                                  as Map<dynamic, dynamic>;
                               try {
-                                final deviceData = (snapshot.data!)
-                                    .snapshot
-                                    .value as Map<dynamic, dynamic>;
-                                try {
-                                  deviceData.forEach(
-                                    (key, values) {
-                                      listDevice.add(
-                                        Device.fromJson(
-                                          jsonDecode(
-                                            jsonEncode(values),
-                                          ),
+                                deviceData.forEach(
+                                  (key, values) {
+                                    listDevice.add(
+                                      Device.fromJson(
+                                        jsonDecode(
+                                          jsonEncode(values),
                                         ),
-                                      );
-                                    },
-                                  );
-                                } catch (e) {
-                                  return Center(
-                                    child: Column(
-                                      children: [
-                                        const Text("No device installed!"),
-                                        TextButton(
-                                          onPressed: () {},
-                                          child: const Text(
-                                              "Click here to add a device."),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                }
-                              } catch (e) {
-                                return Center(
-                                  child: Column(
-                                    children: [
-                                      const Text("No device installed!"),
-                                      TextButton(
-                                        onPressed: () {},
-                                        child: const Text(
-                                            "Click here to add a device."),
                                       ),
-                                    ],
-                                  ),
+                                    );
+                                  },
                                 );
+                              } catch (e) {
+                                listDevice.clear();
                               }
                             }
                             if (listDevice.isEmpty) {
                               return Center(
                                 child: Column(
                                   children: [
-                                    const Text("No device installed!"),
+                                    const Text(
+                                      "No device installed!",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w400),
+                                    ),
                                     TextButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        GoRouter.of(context).pushNamed(
+                                          RouteNames.configDevice,
+                                          queryParams: {
+                                            "pathEmailRequest":
+                                                widget.pathEmailRequest,
+                                          },
+                                        );
+                                      },
                                       child: const Text(
-                                          "Click here to add a device."),
+                                        "Click here to add a device.",
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -242,34 +233,13 @@ class _DashBoardPageMainState extends State<DashBoardPageMain>
                                 mainAxisSpacing: 15,
                               ),
                               itemBuilder: (BuildContext context, int index) {
-                                return GestureDetector(
-                                  onPanCancel: () => _timer.cancel(),
-                                  onPanDown: (_) => {
-                                    _timer = Timer(
-                                      const Duration(seconds: 2),
-                                      () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (_) => DialogSettingDevice(
-                                            path: pathDevice,
-                                            id: listDevice[index].idDevice,
-                                            name: listDevice[index].nameDevice,
-                                            room: listDevice[index]
-                                                .room
-                                                .toString(),
-                                          ),
-                                        );
-                                      },
-                                    )
-                                  },
-                                  child: DeviceComponents(
-                                    idDevice: listDevice[index].idDevice,
-                                    nameDevice: listDevice[index].nameDevice,
-                                    pathDevice: pathDevice,
-                                    ping: listDevice[index].ping,
-                                    toggle: listDevice[index].toggle,
-                                    typeDevice: listDevice[index].typeDevice,
-                                  ),
+                                return DeviceComponents(
+                                  idDevice: listDevice[index].idDevice,
+                                  nameDevice: listDevice[index].nameDevice,
+                                  pathDevice: pathDevice,
+                                  ping: listDevice[index].ping,
+                                  toggle: listDevice[index].toggle,
+                                  typeDevice: listDevice[index].typeDevice,
                                 );
                               },
                             );
@@ -355,6 +325,16 @@ class _DashBoardPageMainState extends State<DashBoardPageMain>
           },
           child: const Text("fake device"),
         ),
+        ElevatedButton(
+            onPressed: () {
+              GoRouter.of(context).pushNamed(
+                RouteNames.configDevice,
+                queryParams: {
+                  "pathEmailRequest": widget.pathEmailRequest,
+                },
+              );
+            },
+            child: Text("add device")),
       ],
     );
   }

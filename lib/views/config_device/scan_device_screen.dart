@@ -69,16 +69,24 @@ class _ScanDeviceScreenState extends State<ScanDeviceScreen> {
                   const Spacer(),
                   if (state is ScanDeviceInitial) ...[
                     Center(
-                      child: ElevatedButton(
+                      child: OutlinedButton.icon(
                         onPressed: () {
                           context
                               .read<ScanDeviceBloc>()
                               .add(ScanDeviceRequestPremission());
-                          // context
-                          //     .read<ScanDeviceBloc>()
-                          //     .add(ScanDeviceRunning());
                         },
-                        child: const Text("Start scan"),
+                        icon: const Icon(
+                          Icons.search_outlined,
+                          size: 50,
+                          color: Colors.blue,
+                        ),
+                        label: const Text(
+                          "Scan for available devices",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -87,12 +95,29 @@ class _ScanDeviceScreenState extends State<ScanDeviceScreen> {
                       Center(
                         child: Column(
                           children: [
-                            const Text("GPS permission has not been granted"),
-                            ElevatedButton(
+                            const Text(
+                              "GPS permission has not been granted",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            OutlinedButton.icon(
                               onPressed: () {
                                 openAppSettings();
                               },
-                              child: const Text("Open setting"),
+                              icon: const Icon(
+                                Icons.settings,
+                                size: 50,
+                                color: Colors.blue,
+                              ),
+                              label: const Text(
+                                "Open setting",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -102,8 +127,21 @@ class _ScanDeviceScreenState extends State<ScanDeviceScreen> {
                       Center(
                         child: Column(
                           children: [
-                            const Text("GPS is not enabled"),
-                            ElevatedButton(
+                            const Text(
+                              "GPS is not enabled",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const Text(
+                              "Please open GPS for Scan!",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            OutlinedButton.icon(
                               onPressed: () {
                                 context
                                     .read<ScanDeviceBloc>()
@@ -112,7 +150,18 @@ class _ScanDeviceScreenState extends State<ScanDeviceScreen> {
                                     .read<ScanDeviceBloc>()
                                     .add(ScanDeviceRequestPremission());
                               },
-                              child: const Text("Try again!"),
+                              icon: const Icon(
+                                Icons.find_replace_outlined,
+                                size: 50,
+                                color: Colors.blue,
+                              ),
+                              label: const Text(
+                                "Try scan",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -162,17 +211,13 @@ class _ScanDeviceScreenState extends State<ScanDeviceScreen> {
                   if (state is ScanDeviceLoaded) ...[
                     Column(
                       children: [
-                        ElevatedButton(
-                            onPressed: () {
-                              context
-                                  .read<ScanDeviceBloc>()
-                                  .add(ScanDeviceResetState());
-                              context
-                                  .read<ScanDeviceBloc>()
-                                  .add(ScanDeviceRequestPremission());
-                            },
-                            child: const Text("Try scan")),
-                        const Text("Lua chon thiet bi"),
+                        const Text(
+                          "Danh sách thiết bị tìm thấy",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                         SizedBox(
                           width: MediaQuery.of(context).size.width,
                           height: 300,
@@ -182,7 +227,7 @@ class _ScanDeviceScreenState extends State<ScanDeviceScreen> {
                             itemCount: state.listDevice.length,
                             itemBuilder: (BuildContext context, int index) {
                               if (state.listDevice.isEmpty) {
-                                const Text("No device, Tru scan!");
+                                const Text("No device, Try scan!");
                               } else {
                                 return TabDeviceComponents(
                                   typeDevice:
@@ -194,22 +239,73 @@ class _ScanDeviceScreenState extends State<ScanDeviceScreen> {
                               return const Text("erre?");
                             },
                           ),
-                        )
+                        ),
+                        OutlinedButton.icon(
+                          onPressed: () {
+                            context
+                                .read<ScanDeviceBloc>()
+                                .add(ScanDeviceResetState());
+                            context
+                                .read<ScanDeviceBloc>()
+                                .add(ScanDeviceRequestPremission());
+                          },
+                          icon: const Icon(
+                            Icons.find_replace_outlined,
+                            size: 50,
+                            color: Colors.blue,
+                          ),
+                          label: const Text(
+                            "Try scan",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ],
                   if (state is ScanDeviceLoadedNull) ...[
-                    ElevatedButton(
-                        onPressed: () {
-                          context
-                              .read<ScanDeviceBloc>()
-                              .add(ScanDeviceResetState());
-                          context
-                              .read<ScanDeviceBloc>()
-                              .add(ScanDeviceRequestPremission());
-                        },
-                        child: const Text("Try scan")),
-                    const Text("Null device"),
+                    Column(
+                      children: [
+                        const Text(
+                          'Device not found',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const Text(
+                          'Please check or reset device!',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        OutlinedButton.icon(
+                          onPressed: () {
+                            context
+                                .read<ScanDeviceBloc>()
+                                .add(ScanDeviceResetState());
+                            context
+                                .read<ScanDeviceBloc>()
+                                .add(ScanDeviceRequestPremission());
+                          },
+                          icon: const Icon(
+                            Icons.find_replace_outlined,
+                            size: 50,
+                            color: Colors.blue,
+                          ),
+                          label: const Text(
+                            "Try scan",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
                   ],
                   if (state is ScanDeviceSetupDevice) ...[
                     Text(
@@ -261,61 +357,112 @@ class _ScanDeviceScreenState extends State<ScanDeviceScreen> {
                     ),
                     const SizedBox(height: 20),
                     Center(
-                      child: ElevatedButton(
-                        onPressed: enableBtn
-                            ? () {
-                                context.read<ScanDeviceBloc>().add(
-                                    ScanDeviceConnect("user", state.nameDevice,
-                                        selectedValueWifi!, _passWifi.text));
-                              }
-                            : null,
-                        child: const Text("Kết nối tới thiết bị"),
+                      child: Column(
+                        children: [
+                          ElevatedButton(
+                            onPressed: enableBtn
+                                ? () {
+                                    context.read<ScanDeviceBloc>().add(
+                                        ScanDeviceConnect(
+                                            widget.pathEmailRequest,
+                                            state.nameDevice,
+                                            selectedValueWifi!,
+                                            _passWifi.text));
+                                  }
+                                : null,
+                            child: const Text("Kết nối tới thiết bị"),
+                          ),
+                          OutlinedButton.icon(
+                            onPressed: () {
+                              context.read<ScanDeviceBloc>().add(
+                                  const ScanDeviceReturnState(
+                                      "ScanDeviceLoaded"));
+                            },
+                            icon: const Icon(Icons.keyboard_return_outlined),
+                            label: const Text("Trở Lại"),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                   if (state is ScanDeviceSetupDeviceStatus) ...[
-                    const Text(
-                      'Đang đợi thiết bị đăng ký...',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
+                    Center(
+                      child: Column(
+                        children: [
+                          const Text(
+                            'Đang đợi thiết bị đăng ký...',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          OutlinedButton.icon(
+                            onPressed: () {
+                              context.read<ScanDeviceBloc>().add(
+                                    const ScanDeviceReturnState(
+                                        "ScanDeviceSetupDevice"),
+                                  );
+                            },
+                            icon: const Icon(Icons.keyboard_return_outlined),
+                            label: const Text("Trở Lại"),
+                          ),
+                        ],
                       ),
                     ),
-                    if (state.statusDeviceResponse == "S") ...[
-                      const Text(
-                        'Thiết bị đã đăng ký thành công!',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                        ),
+                  ],
+                  if (state is ScanDeviceSetupDeviceStatusSuccsec) ...[
+                    Center(
+                      child: Column(
+                        children: [
+                          const Text(
+                            'Thiết bị đã đăng ký thành công!',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              GoRouter.of(context)
+                                  .goNamed(RouteNames.dashBoard);
+                            },
+                            child: const Text("Trở về màn hình chính"),
+                          ),
+                        ],
                       ),
-                      ElevatedButton(
-                          onPressed: () {
-                            GoRouter.of(context).goNamed(RouteNames.dashBoard);
-                          },
-                          child: const Text("Trở về màn hình chính"))
-                    ],
-                    if (state.statusDeviceResponse == "F") ...[
-                      const Text(
-                        "Đăng ký thiết bị thất bại!",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                        ),
+                    ),
+                  ],
+                  if (state is ScanDeviceSetupDeviceStatusFails) ...[
+                    Center(
+                      child: Column(
+                        children: [
+                          const Text(
+                            "Đăng ký thiết bị thất bại!",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const Text(
+                            "Thiết bị kết nối mạng không thành công, vui lòng kiểm tra lại",
+                            style: TextStyle(
+                              fontSize: 19,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          OutlinedButton.icon(
+                            onPressed: () {
+                              context.read<ScanDeviceBloc>().add(
+                                    const ScanDeviceReturnState(
+                                        "ScanDeviceSetupDevice"),
+                                  );
+                            },
+                            icon: const Icon(Icons.keyboard_return_outlined),
+                            label: const Text("Trở Lại"),
+                          ),
+                        ],
                       ),
-                      const Text(
-                        "Thiết bị kết nối mạng không thành công, vui lòng kiểm tra lại",
-                        style: TextStyle(
-                          fontSize: 19,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      ElevatedButton(
-                          onPressed: () {
-                            GoRouter.of(context).goNamed(RouteNames.dashBoard);
-                          },
-                          child: const Text("Trở về màn hình chính"))
-                    ]
+                    ),
                   ],
                   const Spacer(),
                   SizedBox(
@@ -350,6 +497,15 @@ class _ScanDeviceScreenState extends State<ScanDeviceScreen> {
                               Text("   "),
                               Text(
                                 "3",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xffBDBDBD),
+                                ),
+                              ),
+                              Text("   "),
+                              Text(
+                                "4",
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
@@ -396,6 +552,15 @@ class _ScanDeviceScreenState extends State<ScanDeviceScreen> {
                                   color: Color(0xffBDBDBD),
                                 ),
                               ),
+                              Text("   "),
+                              Text(
+                                "4",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xffBDBDBD),
+                                ),
+                              ),
                             ],
                           ),
                           const Text(
@@ -406,7 +571,107 @@ class _ScanDeviceScreenState extends State<ScanDeviceScreen> {
                               color: Colors.blue,
                             ),
                           ),
-                        ]
+                        ],
+                        if (state is ScanDeviceSetupDevice) ...[
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: const <Widget>[
+                              Text(
+                                "1",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xffBDBDBD),
+                                ),
+                              ),
+                              Text("   "),
+                              Text(
+                                "2",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xffBDBDBD),
+                                ),
+                              ),
+                              Text("   "),
+                              Text(
+                                "3",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.blue),
+                              ),
+                              Text("   "),
+                              Text(
+                                "4",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xffBDBDBD),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Text(
+                            "Cấu Hình thiết bị",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ],
+                        if (state is ScanDeviceSetupDeviceStatus ||
+                            state is ScanDeviceSetupDeviceStatusSuccsec ||
+                            state is ScanDeviceSetupDeviceStatusFails) ...[
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: const <Widget>[
+                              Text(
+                                "1",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xffBDBDBD),
+                                ),
+                              ),
+                              Text("   "),
+                              Text(
+                                "2",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xffBDBDBD),
+                                ),
+                              ),
+                              Text("   "),
+                              Text(
+                                "3",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xffBDBDBD),
+                                ),
+                              ),
+                              Text("   "),
+                              Text(
+                                "4",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.blue),
+                              ),
+                            ],
+                          ),
+                          const Text(
+                            "Đăng ký thiết bị",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ],
                       ],
                     ),
                   ),

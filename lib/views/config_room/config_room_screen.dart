@@ -68,8 +68,8 @@ class _ConfigRoomScreenState extends State<ConfigRoomScreen> {
                 const SizedBox(height: 20),
                 Container(
                   padding: const EdgeInsets.all(5.0),
-                  decoration:
-                      BoxDecoration(border: Border.all(color: Colors.black45)),
+                  // decoration:
+                  //     BoxDecoration(border: Border.all(color: Colors.black45)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -157,11 +157,12 @@ class _ConfigRoomScreenState extends State<ConfigRoomScreen> {
                   ),
                 ),
                 const SizedBox(height: 10),
+                const Divider(height: 3, color: Colors.black),
                 Container(
                   width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsets.all(5.0),
-                  decoration:
-                      BoxDecoration(border: Border.all(color: Colors.black45)),
+                  // decoration:
+                  //     BoxDecoration(border: Border.all(color: Colors.black45)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -196,7 +197,14 @@ class _ConfigRoomScreenState extends State<ConfigRoomScreen> {
                                   listRoom.clear();
                                 }
                                 if (listRoom.isEmpty) {
-                                  return const Center(child: Text("Empty!"));
+                                  return const Center(
+                                      child: Text(
+                                    "Empty! ",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ));
                                 }
                                 return SizedBox(
                                   width: 200,

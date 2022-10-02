@@ -6,20 +6,35 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:plugin_wifi_connect/plugin_wifi_connect.dart';
 import 'package:smarthome_byme/models/device_scan/device_scan_model.dart';
+import 'package:smarthome_byme/resources/dashboard_repository.dart';
+import 'package:smarthome_byme/resources/scandevice_repository.dart';
 import 'package:wifi_scan/wifi_scan.dart';
 
 part 'scan_device_event.dart';
 part 'scan_device_state.dart';
 
 class ScanDeviceBloc extends Bloc<ScanDeviceEvent, ScanDeviceState> {
-  ScanDeviceBloc() : super(ScanDeviceInitial()) {
+  final ScanDeviceRepository scanDeviceRepository;
+  ScanDeviceBloc({required this.scanDeviceRepository})
+      : super(ScanDeviceInitial()) {
     List<String> listWifi = [];
     List<DeviceScan> listDevice = [];
     List<WiFiAccessPoint> accessPoints = [];
+    late String nameDevice;
 
     on<ScanDeviceResetState>(
       (event, emit) {
         emit(ScanDeviceInitial());
+      },
+    );
+    on<ScanDeviceReturnState>(
+      (event, emit) {
+        if (event.stateReturn == "ScanDeviceLoaded") {
+          emit(ScanDeviceLoaded(listDevice));
+        }
+        if (event.stateReturn == "ScanDeviceSetupDevice") {
+          emit(ScanDeviceSetupDevice(nameDevice, listWifi));
+        }
       },
     );
 
@@ -73,12 +88,14 @@ class ScanDeviceBloc extends Bloc<ScanDeviceEvent, ScanDeviceState> {
     );
     on<ScanDeviceSetup>(
       ((event, emit) {
-        emit(ScanDeviceSetupDevice(event.nameDevice, listWifi));
+        nameDevice = event.nameDevice;
+        emit(ScanDeviceSetupDevice(nameDevice, listWifi));
       }),
     );
     on<ScanDeviceConnect>(
       ((event, emit) async {
         final status = await PluginWifiConnect.connect(event.nameDevice);
+        // await PluginWifiConnect.disconnect();
         if (status == true) {
           log("connect sucssec");
           emit(const ScanDeviceSetupDeviceStatus(""));
@@ -86,20 +103,20 @@ class ScanDeviceBloc extends Bloc<ScanDeviceEvent, ScanDeviceState> {
           int port = 4210;
 
           RawDatagramSocket.bind(InternetAddress.anyIPv4, port).then(
-            (RawDatagramSocket udpSocket) {
+            (RawDatagramSocket udpSocket) async {
               udpSocket.broadcastEnabled = true;
-              udpSocket.listen((e) {
+              udpSocket.readEventsEnabled = true;
+
+              udpSocket.asBroadcastStream().listen((e) async {
                 Datagram? dg = udpSocket.receive();
                 if (dg != null) {
                   String s = String.fromCharCodes(dg.data);
-                  log("received $s");
+                  log("received..... $s");
                   if (s == "S") {
-                    log("Add device done!");
-                    emit(const ScanDeviceSetupDeviceStatus("S"));
+                    add(ScanDeviceGetStatusDevice(s));
                   }
                   if (s == "F") {
-                    log("Add device Fail!");
-                    emit(const ScanDeviceSetupDeviceStatus("F"));
+                    add(ScanDeviceGetStatusDevice(s));
                   }
                 }
               });
@@ -112,6 +129,19 @@ class ScanDeviceBloc extends Bloc<ScanDeviceEvent, ScanDeviceState> {
           log("fails");
         }
       }),
+    );
+    on<ScanDeviceGetStatusDevice>(
+      (event, emit) {
+        log("wait reponse");
+        if (event.value == "S") {
+          log("Add device doneeeeeeeeeeeeeeeee!");
+          emit(const ScanDeviceSetupDeviceStatusSuccsec());
+        }
+        if (event.value == "F") {
+          log("Add device Failllllllllllllllll!");
+          emit(const ScanDeviceSetupDeviceStatusFails());
+        }
+      },
     );
   }
 }

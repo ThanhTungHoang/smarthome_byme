@@ -2,8 +2,6 @@ import 'dart:developer';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:smarthome_byme/core/router/routes.dart';
 import 'package:smarthome_byme/resources/dashboard_repository.dart';
 
 part 'dashboard_event.dart';
@@ -22,7 +20,8 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     );
     on<DashboardRequest>(
       ((event, emit) async {
-        final checkUnMessenger = await dashBoardRepository.checkUnMessenger();
+        // final checkUnMessenger = await dashBoardRepository.checkUnMessenger();
+        final checkUnMessenger = true;
         final String responseUserInfor =
             await dashBoardRepository.getInforUser();
         String pathEmailRequest = responseUserInfor.split('-')[0];

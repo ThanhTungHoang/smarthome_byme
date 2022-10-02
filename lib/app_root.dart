@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smarthome_byme/BLoC/scan_device_bloc/scan_device_bloc.dart';
+import 'package:smarthome_byme/resources/scandevice_repository.dart';
 import 'BLoC/auth_bloc/auth_bloc.dart';
 import 'BLoC/dashboard_bloc/dashboard_bloc.dart';
 import 'BLoC/dashboard_main_bloc/dashboard_main_bloc.dart';
@@ -22,6 +23,9 @@ class AppRoot extends StatelessWidget {
         RepositoryProvider(
           create: (context) => DashBoardRepository(),
         ),
+        RepositoryProvider(
+          create: (context) => ScanDeviceRepository(),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -41,7 +45,8 @@ class AppRoot extends StatelessWidget {
             ),
           ),
           BlocProvider(
-            create: (context) => ScanDeviceBloc(),
+            create: (context) => ScanDeviceBloc(
+                scanDeviceRepository: context.read<ScanDeviceRepository>()),
           ),
         ],
         child: MaterialApp.router(

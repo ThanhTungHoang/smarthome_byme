@@ -38,6 +38,14 @@ class ScanDeviceSetupDeviceStatus extends ScanDeviceState {
   const ScanDeviceSetupDeviceStatus(this.statusDeviceResponse);
 }
 
+class ScanDeviceSetupDeviceStatusSuccsec extends ScanDeviceState {
+  const ScanDeviceSetupDeviceStatusSuccsec();
+}
+
+class ScanDeviceSetupDeviceStatusFails extends ScanDeviceState {
+  const ScanDeviceSetupDeviceStatusFails();
+}
+
 class ScanDeviceError extends ScanDeviceState {
   final String result;
 

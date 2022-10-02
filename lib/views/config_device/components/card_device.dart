@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smarthome_byme/models/device/device_model.dart';
+import 'package:smarthome_byme/views/config_device/components/dialog_delete_device.dart';
 import 'package:smarthome_byme/views/config_device/components/dialog_rename_device.dart';
 import 'package:smarthome_byme/views/config_device/components/dialog_selection_room.dart';
 
@@ -34,61 +35,149 @@ class _CardDeviceState extends State<CardDevice> {
     pathRoom = "admin/${widget.pathEmailRequest}/Room/";
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(5),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+        padding: const EdgeInsets.all(15),
+        child: Column(
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text("Name: ${widget.nameDevice}"),
-                Text("Id: ${widget.idDevice}"),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text.rich(
+                      TextSpan(
+                        text: "Name: ",
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w400),
+                        children: <InlineSpan>[
+                          TextSpan(
+                            text: widget.nameDevice,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Text.rich(
+                      TextSpan(
+                        text: "Id: ",
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w400),
+                        children: <InlineSpan>[
+                          TextSpan(
+                            text: widget.idDevice,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Text.rich(
+                      TextSpan(
+                        text: "Type: ",
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w400),
+                        children: <InlineSpan>[
+                          TextSpan(
+                            text: widget.typeDevice,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    if (widget.roomDevice == "") ...[
+                      const Text.rich(
+                        TextSpan(
+                          text: "Room: ",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w400),
+                          children: <InlineSpan>[
+                            TextSpan(
+                              text: "Not added yet",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ] else ...[
+                      Text.rich(
+                        TextSpan(
+                          text: "Room: ",
+                          style: const TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w400),
+                          children: <InlineSpan>[
+                            TextSpan(
+                              text: widget.roomDevice,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+                const Spacer(flex: 1),
               ],
             ),
-            const Spacer(flex: 1),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
               children: [
-                Text("Type: ${widget.typeDevice}"),
-                if (widget.roomDevice == "") ...[
-                  const Text("Room: Not added yet"),
-                ] else ...[
-                  Text("Room: ${widget.roomDevice}"),
-                ]
+                const Spacer(flex: 2),
+                IconButton(
+                  onPressed: () async {
+                    showDialog(
+                      context: context,
+                      builder: (_) => DialogReNameDevice(
+                        idDevice: widget.idDevice,
+                        listDevice: widget.listDevice,
+                        pathDevice: pathDevice,
+                      ),
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.edit,
+                  ),
+                ),
+                const Spacer(flex: 1),
+                IconButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => DialogSelectionRoom(
+                        pathDevice: pathDevice,
+                        idDevice: widget.idDevice,
+                        pathRoom: pathRoom,
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.add_home_rounded),
+                ),
+                const Spacer(flex: 1),
+                IconButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => DialogDeleteDevice(
+                        pathDevice: pathDevice,
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.delete),
+                ),
+                const Spacer(flex: 2),
               ],
-            ),
-            const Spacer(flex: 3),
-            IconButton(
-              onPressed: () async {
-                showDialog(
-                  context: context,
-                  builder: (_) => DialogReNameDevice(
-                    idDevice: widget.idDevice,
-                    listDevice: widget.listDevice,
-                    pathDevice: pathDevice,
-                  ),
-                );
-              },
-              icon: const Icon(Icons.edit),
-            ),
-            const Spacer(flex: 1),
-            IconButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => DialogSelectionRoom(
-                    pathDevice: pathDevice,
-                    idDevice: widget.idDevice,
-                    pathRoom: pathRoom,
-                  ),
-                );
-              },
-              icon: const Icon(Icons.add_home_rounded),
-            ),
-            const Spacer(flex: 1),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.delete),
             ),
           ],
         ),

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:smarthome_byme/models/device/device_model.dart';
@@ -28,11 +29,16 @@ class _TabDeviceViewInRoomState extends State<TabDeviceViewInRoom> {
         builder: (context, snapshot) {
           List<Device> deviceList = [];
           if (snapshot.hasData) {
+            log("1");
             try {
               final values = (snapshot.data as DatabaseEvent).snapshot.value
                   as Map<dynamic, dynamic>;
+              log("2");
+              print(values.keys);
               values.forEach(
                 (key, values) {
+                  log("3");
+                  print(values);
                   Device device = Device.fromJson(
                     jsonDecode(
                       jsonEncode(values),
@@ -52,7 +58,7 @@ class _TabDeviceViewInRoomState extends State<TabDeviceViewInRoom> {
               );
             } catch (e) {
               return const Center(
-                child: Text("No devices connected to the room yet!"),
+                child: Text("No devices connected to the room yet! "),
               );
             }
             if (deviceList.isEmpty) {

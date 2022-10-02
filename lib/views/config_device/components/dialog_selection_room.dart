@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +24,7 @@ class _DialogSelectionRoomState extends State<DialogSelectionRoom> {
   List<String> listRoom = [];
   List<bool> value = [];
   int count = 0;
+  String room = "";
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -73,31 +76,42 @@ class _DialogSelectionRoomState extends State<DialogSelectionRoom> {
                       shrinkWrap: true,
                       itemCount: listRoom.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return CheckboxListTile(
-                          title: Text(listRoom[index]),
-                          autofocus: false,
-                          activeColor: Colors.green,
-                          checkColor: Colors.white,
-                          selected: value[index],
-                          value: value[index],
-                          onChanged: (valueOnChanged) {
-                            value[index] = valueOnChanged!;
-                            count = 0;
-                            _enableButton = false;
-                            for (int i = 0; i < value.length; i++) {
-                              if (value[i] == true) {
-                                count++;
-                                if (count == 1) {
-                                  _enableButton = true;
-                                  setState(() {});
-                                } else {
-                                  _enableButton = false;
-                                  setState(() {});
+                        return Column(
+                          children: [
+                            const Divider(
+                              height: 1,
+                              color: Colors.black,
+                            ),
+                            CheckboxListTile(
+                              side: const BorderSide(color: Colors.red),
+                              title: Text(listRoom[index]),
+                              autofocus: false,
+                              activeColor: Colors.green,
+                              checkColor: Colors.white,
+                              selected: value[index],
+                              value: value[index],
+                              onChanged: (valueOnChanged) {
+                                value[index] = valueOnChanged!;
+                                count = 0;
+                                _enableButton = false;
+                                for (int i = 0; i < value.length; i++) {
+                                  if (value[i] == true) {
+                                    count++;
+                                    if (count == 1) {
+                                      room = listRoom[index];
+                                      _enableButton = true;
+                                      setState(() {});
+                                    } else {
+                                      _enableButton = false;
+                                      setState(() {});
+                                    }
+                                  }
                                 }
-                              }
-                            }
-                            setState(() {});
-                          },
+
+                                setState(() {});
+                              },
+                            ),
+                          ],
                         );
                       },
                     );
@@ -123,6 +137,14 @@ class _DialogSelectionRoomState extends State<DialogSelectionRoom> {
                             validate = false;
                           });
                         }
+                        log(room);
+                        DatabaseReference ref = FirebaseDatabase.instance
+                            .ref("${widget.pathDevice}/${widget.idDevice}");
+                        await ref.update(
+                          {
+                            "room": room,
+                          },
+                        );
                         if (!mounted) return;
                         Navigator.pop(context);
                       }
@@ -151,6 +173,34 @@ class _DialogSelectionRoomState extends State<DialogSelectionRoom> {
                   ),
                 ),
               )
+            ],
+          ),
+          const SizedBox(height: 5),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              OutlinedButton.icon(
+                onPressed: () async {
+                  DatabaseReference ref = FirebaseDatabase.instance
+                      .ref("${widget.pathDevice}/${widget.idDevice}");
+                  await ref.update(
+                    {
+                      "room": '',
+                    },
+                  );
+                  if (!mounted) return;
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.delete_forever_rounded),
+                label: const Text(
+                  "Remove room",
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xff464646),
+                  ),
+                ),
+              ),
             ],
           ),
         ],

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -64,23 +65,27 @@ class _ConfigDeviceScreenState extends State<ConfigDeviceScreen> {
                 ),
                 const SizedBox(height: 20),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      GoRouter.of(context).pushNamed(RouteNames.scanDevice,
-                          queryParams: {
-                            "pathEmailRequest": widget.pathEmailRequest
-                          });
-                    },
-                    child: const Text(
-                      "Start scan device by wifi",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
+                    width: MediaQuery.of(context).size.width,
+                    child: OutlinedButton.icon(
+                      onPressed: () {
+                        GoRouter.of(context).pushNamed(RouteNames.scanDevice,
+                            queryParams: {
+                              "pathEmailRequest": widget.pathEmailRequest
+                            });
+                      },
+                      icon: const Icon(
+                        Icons.search_outlined,
+                        size: 50,
+                        color: Colors.blue,
                       ),
-                    ),
-                  ),
-                ),
+                      label: const Text(
+                        "Scan device by wifi",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    )),
                 const SizedBox(height: 10),
                 const Divider(
                   color: Colors.black,
@@ -104,46 +109,32 @@ class _ConfigDeviceScreenState extends State<ConfigDeviceScreen> {
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           listDevice.clear();
+
+                          final deviceData = (snapshot.data!).snapshot.value
+                              as Map<dynamic, dynamic>;
                           try {
-                            final deviceData = (snapshot.data!).snapshot.value
-                                as Map<dynamic, dynamic>;
-                            try {
-                              deviceData.forEach(
-                                (key, values) {
-                                  listDevice.add(
-                                    Device.fromJson(
-                                      jsonDecode(
-                                        jsonEncode(values),
-                                      ),
+                            deviceData.forEach(
+                              (key, values) {
+                                listDevice.add(
+                                  Device.fromJson(
+                                    jsonDecode(
+                                      jsonEncode(values),
                                     ),
-                                  );
-                                },
-                              );
-                            } catch (e) {
-                              return Center(
-                                child: Column(
-                                  children: [
-                                    const Text("No device installed!"),
-                                    TextButton(
-                                      onPressed: () {},
-                                      child: const Text(
-                                          "Click here to add a device."),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }
-                          } catch (e) {
-                            return Center(
-                              child: Column(
-                                children: [
-                                  const Text("No device installed!"),
-                                  TextButton(
-                                    onPressed: () {},
-                                    child: const Text(
-                                        "Click here to add a device."),
                                   ),
-                                ],
+                                );
+                              },
+                            );
+                          } catch (e) {
+                            listDevice.clear();
+                          }
+                          if (listDevice.isEmpty) {
+                            return const Center(
+                              child: Text(
+                                "No device installed!",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             );
                           }
@@ -164,20 +155,7 @@ class _ConfigDeviceScreenState extends State<ConfigDeviceScreen> {
                             },
                           );
                         }
-                        if (listDevice.isEmpty) {
-                          return Center(
-                            child: Column(
-                              children: [
-                                const Text("No device installed!"),
-                                TextButton(
-                                  onPressed: () {},
-                                  child:
-                                      const Text("Click here to add a device."),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
+
                         return const Center(child: CircularProgressIndicator());
                       },
                     ),

@@ -9,6 +9,12 @@ abstract class ScanDeviceEvent extends Equatable {
 
 class ScanDeviceResetState extends ScanDeviceEvent {}
 
+class ScanDeviceReturnState extends ScanDeviceEvent {
+  final String stateReturn;
+
+  const ScanDeviceReturnState(this.stateReturn);
+}
+
 class ScanDeviceRequestPremission extends ScanDeviceEvent {}
 
 class ScanDeviceSetup extends ScanDeviceEvent {
@@ -25,4 +31,10 @@ class ScanDeviceConnect extends ScanDeviceEvent {
 
   const ScanDeviceConnect(
       this.pathEmailRequest, this.nameDevice, this.ssidWifi, this.passWifi);
+}
+
+class ScanDeviceGetStatusDevice extends ScanDeviceEvent {
+  final String value;
+
+  const ScanDeviceGetStatusDevice(this.value);
 }
