@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -10,9 +8,11 @@ import 'package:smarthome_byme/views/config_device/components/card_device.dart';
 
 class ConfigDeviceScreen extends StatefulWidget {
   final String pathEmailRequest;
+  final String typeUser;
   const ConfigDeviceScreen({
     super.key,
     required this.pathEmailRequest,
+    required this.typeUser,
   });
 
   @override
@@ -24,6 +24,7 @@ class _ConfigDeviceScreenState extends State<ConfigDeviceScreen> {
   List<Device> listDevice = [];
   late String pathDevice;
   late String pathRoom;
+  bool maxCountDevice = false;
   @override
   Widget build(BuildContext context) {
     pathDevice = "admin/${widget.pathEmailRequest}/Device/";
@@ -34,6 +35,7 @@ class _ConfigDeviceScreenState extends State<ConfigDeviceScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -87,6 +89,76 @@ class _ConfigDeviceScreenState extends State<ConfigDeviceScreen> {
                       ),
                     )),
                 const SizedBox(height: 10),
+                StreamBuilder(
+                  stream: FirebaseDatabase.instance
+                      .ref(pathDevice)
+                      .onValue
+                      .asBroadcastStream(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      final room = (snapshot.data!).snapshot.value
+                          as Map<dynamic, dynamic>;
+                      int countRoom = room.keys.length;
+                      if (widget.typeUser == "Test User") {
+                        if (countRoom >= 3) {
+                          maxCountDevice = true;
+                        } else {
+                          maxCountDevice = false;
+                        }
+                      }
+                      return Text(
+                        "Tổng số thiết bị: $countRoom",
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      );
+                    }
+                    return const Text(
+                      "Tổng số thiết bị: Loading...",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    );
+                  },
+                ),
+                if (widget.typeUser == "Test User") ...[
+                  const Text(
+                    "Tối đa: 3",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+                if (widget.typeUser == "Family") ...[
+                  const Text(
+                    "Tối đa: 10",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+                if (widget.typeUser == "Enterprise") ...[
+                  const Text(
+                    "Tối đa: 100",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+                if (widget.typeUser == "Unlimited") ...[
+                  const Text(
+                    "Tối đa: Unlimited",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
                 const Divider(
                   color: Colors.black,
                   height: 0.1,

@@ -13,6 +13,7 @@ dependencies:
   firebase_core: ^1.20.0
   firebase_auth: ^3.6.2
   firebase_database: ^9.1.4
+  firebase_storage: ^10.3.10
   # Bloc
   flutter_bloc: ^8.0.1
   # Utils
@@ -37,6 +38,8 @@ dependencies:
   flutter_secure_storage: ^6.0.0
   # UDP
   udp: ^5.0.3
+  # Asset to abum
+  image_picker: ^0.8.5+3
 
 
 

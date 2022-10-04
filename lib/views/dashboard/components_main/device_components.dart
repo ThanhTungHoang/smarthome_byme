@@ -2,7 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:smarthome_byme/core/app_colors.dart';
-import 'package:smarthome_byme/views/dashboard/components/status_device.dart';
+import 'package:smarthome_byme/views/dashboard/components_main/status_device.dart';
 
 class DeviceComponents extends StatefulWidget {
   final String nameDevice;

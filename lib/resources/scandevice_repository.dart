@@ -1,9 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:plugin_wifi_connect/plugin_wifi_connect.dart';
-import 'package:udp/udp.dart';
 
 class ScanDeviceRepository {
   Stream<String> sendValueToEndDevice(String nameDevice, String ssidWifi,

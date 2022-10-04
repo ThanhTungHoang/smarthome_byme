@@ -1,32 +1,24 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:developer';
-import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
-import 'package:smarthome_byme/models/device/device_model.dart';
-import 'package:smarthome_byme/views/dashboard/components/body_main.dart';
-import 'package:smarthome_byme/views/dashboard/components/device_components_tab_add_device.dart';
-import 'package:smarthome_byme/views/dashboard/components/top_main.dart';
+import 'package:smarthome_byme/views/dashboard/components_main/body_main.dart';
+import 'package:smarthome_byme/views/dashboard/components_main/top_main.dart';
 import '../../../core/router/routes.dart';
-import '../components/device_components.dart';
-import '../components/dialog_setting_device.dart';
-import '../components/tab_device_view_in_room.dart';
 
 class DashBoardPageMain extends StatefulWidget {
   final String pathEmailRequest;
   final String nameUser;
   final String content;
   final bool checkUnMessenger;
-  const DashBoardPageMain(
-      {Key? key,
-      required this.pathEmailRequest,
-      required this.nameUser,
-      required this.content,
-      required this.checkUnMessenger})
-      : super(key: key);
+  final String typeUser;
+  const DashBoardPageMain({
+    Key? key,
+    required this.pathEmailRequest,
+    required this.nameUser,
+    required this.content,
+    required this.checkUnMessenger,
+    required this.typeUser,
+  }) : super(key: key);
 
   @override
   State<DashBoardPageMain> createState() => _DashBoardPageMainState();
@@ -53,12 +45,16 @@ class _DashBoardPageMainState extends State<DashBoardPageMain>
       children: [
         const SizedBox(height: 10),
         TopMain(
-            pathEmailRequest: widget.pathEmailRequest,
-            nameUser: widget.nameUser,
-            content: widget.content,
-            checkUnMessenger: widget.checkUnMessenger),
+          pathEmailRequest: widget.pathEmailRequest,
+          nameUser: widget.nameUser,
+          content: widget.content,
+          checkUnMessenger: widget.checkUnMessenger,
+        ),
         const SizedBox(height: 30),
-        BodyMain(pathEmailRequest: widget.pathEmailRequest),
+        BodyMain(
+          pathEmailRequest: widget.pathEmailRequest,
+          typeUser: widget.typeUser,
+        ),
         ElevatedButton(
           onPressed: () async {
             DatabaseReference ref = FirebaseDatabase.instance.ref(pathDevice);
@@ -97,7 +93,7 @@ class _DashBoardPageMainState extends State<DashBoardPageMain>
                 },
               );
             },
-            child: Text("add device")),
+            child: const Text("add device")),
       ],
     );
   }

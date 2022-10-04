@@ -7,7 +7,9 @@ import 'package:smarthome_byme/views/config_room/components/dialog_delete_room.d
 
 class ConfigRoomScreen extends StatefulWidget {
   final String pathEmailRequest;
-  const ConfigRoomScreen({super.key, required this.pathEmailRequest});
+  final String typeUser;
+  const ConfigRoomScreen(
+      {super.key, required this.pathEmailRequest, required this.typeUser});
 
   @override
   State<ConfigRoomScreen> createState() => _ConfigRoomScreenState();
@@ -18,7 +20,9 @@ class _ConfigRoomScreenState extends State<ConfigRoomScreen> {
   final _text = TextEditingController();
   bool _validate = false;
   bool _enableButton = false;
+  bool maxCountRoom = false;
   late String pathRoom;
+  late String pathInfor;
   final List<String> listRoom = [];
   @override
   void dispose() {
@@ -29,6 +33,7 @@ class _ConfigRoomScreenState extends State<ConfigRoomScreen> {
   @override
   Widget build(BuildContext context) {
     pathRoom = "admin/${widget.pathEmailRequest}/Room/";
+    pathInfor = "admin/${widget.pathEmailRequest}/Infor/";
 
     return Scaffold(
       body: SafeArea(
@@ -87,14 +92,28 @@ class _ConfigRoomScreenState extends State<ConfigRoomScreen> {
                             maxLength: 15,
                             controller: _text,
                             decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Colors.white,
                               labelText: 'Ex: Phòng khách',
                               errorText:
                                   _validate ? 'Phòng này đã tổn tại!' : null,
                               errorBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.redAccent),
+                                borderSide: BorderSide(
+                                  color: Colors.redAccent,
+                                  width: 2,
+                                ),
                               ),
-                              border: const OutlineInputBorder(
-                                borderSide: BorderSide(),
+                              focusedBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.cyan,
+                                  width: 2,
+                                ),
+                              ),
+                              enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.cyan,
+                                  width: 2,
+                                ),
                               ),
                             ),
                             onChanged: ((value) {
@@ -113,41 +132,59 @@ class _ConfigRoomScreenState extends State<ConfigRoomScreen> {
                           ElevatedButton(
                             onPressed: _enableButton
                                 ? () async {
-                                    bool flag = false;
-                                    for (int i = 0; i < listRoom.length; i++) {
-                                      if (listRoom[i] == textFieldAddRoom) {
-                                        flag = true;
-                                      }
-                                    }
-                                    if (flag == true) {
-                                      setState(() {
-                                        _validate = true;
-                                      });
-                                    } else {
-                                      setState(() {
-                                        _validate = false;
-                                      });
-
-                                      DatabaseReference ref = FirebaseDatabase
-                                          .instance
-                                          .ref(pathRoom);
-                                      await ref.update(
-                                        {
-                                          _text.text: '',
-                                        },
+                                    if (maxCountRoom == true) {
+                                      final snackBar = SnackBar(
+                                        content: const Text(
+                                          'Đã đạt giới hạn phòng, vui lòng nâng cấp gói dịch vụ!',
+                                          style: TextStyle(
+                                            color: Colors.red,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        backgroundColor: Colors.teal[100],
                                       );
-                                      _text.clear();
-                                      setState(() {
-                                        _enableButton = false;
-                                      });
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
+                                    } else {
+                                      bool flag = false;
+                                      for (int i = 0;
+                                          i < listRoom.length;
+                                          i++) {
+                                        if (listRoom[i] == textFieldAddRoom) {
+                                          flag = true;
+                                        }
+                                      }
+                                      if (flag == true) {
+                                        setState(() {
+                                          _validate = true;
+                                        });
+                                      } else {
+                                        setState(() {
+                                          _validate = false;
+                                        });
+
+                                        DatabaseReference ref = FirebaseDatabase
+                                            .instance
+                                            .ref(pathRoom);
+                                        await ref.update(
+                                          {
+                                            _text.text: '',
+                                          },
+                                        );
+                                        _text.clear();
+                                        setState(() {
+                                          _enableButton = false;
+                                        });
+                                      }
                                     }
                                   }
                                 : null,
                             child: const Text(
-                              "Lưu thay đổi",
+                              "Thêm phòng",
                               style: TextStyle(
                                 fontSize: 15,
-                                // fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           ),
@@ -157,6 +194,76 @@ class _ConfigRoomScreenState extends State<ConfigRoomScreen> {
                   ),
                 ),
                 const SizedBox(height: 10),
+                StreamBuilder(
+                  stream: FirebaseDatabase.instance
+                      .ref(pathRoom)
+                      .onValue
+                      .asBroadcastStream(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      final room = (snapshot.data!).snapshot.value
+                          as Map<dynamic, dynamic>;
+                      int countRoom = room.keys.length;
+                      if (widget.typeUser == "Test User") {
+                        if (countRoom >= 3) {
+                          maxCountRoom = true;
+                        } else {
+                          maxCountRoom = false;
+                        }
+                      }
+                      return Text(
+                        "Tổng số phòng: $countRoom",
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      );
+                    }
+                    return const Text(
+                      "Tổng số phòng: Loading...",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    );
+                  },
+                ),
+                if (widget.typeUser == "Test User") ...[
+                  const Text(
+                    "Khả dụng: 3",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+                if (widget.typeUser == "Family") ...[
+                  const Text(
+                    "Khả dụng: 10",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+                if (widget.typeUser == "Enterprise") ...[
+                  const Text(
+                    "Khả dụng: 100",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+                if (widget.typeUser == "Unlimited") ...[
+                  const Text(
+                    "Khả dụng: Unlimited",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
                 const Divider(height: 3, color: Colors.black),
                 Container(
                   width: MediaQuery.of(context).size.width,

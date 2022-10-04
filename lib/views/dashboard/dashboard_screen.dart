@@ -80,8 +80,25 @@ class _DashBoardScreenState extends State<DashBoardScreen>
                   child: Column(
                     children: [
                       if (state is DashboardLoading) ...[
-                        const Center(
-                          child: CircularProgressIndicator(),
+                        Center(
+                          child: Column(
+                            children: [
+                              const CircularProgressIndicator(),
+                              TextButton.icon(
+                                  onPressed: () {
+                                    context
+                                        .read<DashboardBloc>()
+                                        .add(DashboardRequest());
+                                  },
+                                  icon: const Icon(Icons.replay_outlined),
+                                  label: const Text(
+                                    "Tải lại trang...",
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w300),
+                                  ))
+                            ],
+                          ),
                         ),
                       ],
                       if (state is DashboardLoaded) ...[
@@ -91,13 +108,18 @@ class _DashBoardScreenState extends State<DashBoardScreen>
                             nameUser: state.nameUser,
                             content: state.content,
                             checkUnMessenger: state.unMessenger,
+                            typeUser: state.typeUser,
                           ),
                         ],
                         if (_selectedIndex == 1) ...[
                           const HomePageEnegry(),
                         ],
                         if (_selectedIndex == 2) ...[
-                          const DashBoardPageUser(),
+                          DashBoardPageUser(
+                            pathEmailRequest: state.pathEmail,
+                            nameUser: state.nameUser,
+                            typeUser: state.typeUser,
+                          ),
                         ]
                       ],
                     ],

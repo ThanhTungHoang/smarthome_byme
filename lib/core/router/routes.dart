@@ -54,6 +54,7 @@ class Routes {
         builder: (BuildContext context, GoRouterState state) =>
             ConfigRoomScreen(
           pathEmailRequest: state.queryParams['pathEmailRequest'].toString(),
+          typeUser: state.queryParams['typeUser'].toString(),
         ),
       ),
       GoRoute(
@@ -62,6 +63,7 @@ class Routes {
         builder: (BuildContext context, GoRouterState state) =>
             ConfigDeviceScreen(
           pathEmailRequest: state.queryParams['pathEmailRequest'].toString(),
+          typeUser: state.queryParams['typeUser'].toString(),
         ),
       ),
       GoRoute(

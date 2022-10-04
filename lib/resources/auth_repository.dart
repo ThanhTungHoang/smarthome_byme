@@ -99,6 +99,7 @@ class AuthRepository {
   Future createUserData(String fullname) async {
     DatabaseReference ref = FirebaseDatabase.instance.ref("admin");
     final email = FirebaseAuth.instance.currentUser?.email;
+
     const find = '.';
     const replaceWith = '_';
     final pathEmail = email!.replaceAll(find, replaceWith);
@@ -134,6 +135,7 @@ class AuthRepository {
           },
           "Infor": {
             "Name": fullname,
+            "UrlPhoto": '',
           },
           "Messenger": {
             "Welcome new user!": {

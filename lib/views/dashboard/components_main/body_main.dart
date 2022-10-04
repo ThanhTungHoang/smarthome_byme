@@ -7,12 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smarthome_byme/core/router/routes.dart';
 import 'package:smarthome_byme/models/device/device_model.dart';
-import 'package:smarthome_byme/views/dashboard/components/device_components_tab_add_device.dart';
-import 'package:smarthome_byme/views/dashboard/components/tab_device_view_in_room.dart';
+import 'package:smarthome_byme/views/dashboard/components_main/device_components_tab_add_device.dart';
+import 'package:smarthome_byme/views/dashboard/components_main/tab_device_view_in_room.dart';
 
 class BodyMain extends StatefulWidget {
   final String pathEmailRequest;
-  const BodyMain({super.key, required this.pathEmailRequest});
+  final String typeUser;
+  const BodyMain(
+      {super.key, required this.pathEmailRequest, required this.typeUser});
 
   @override
   State<BodyMain> createState() => _BodyMainState();
@@ -186,6 +188,7 @@ class _BodyMainState extends State<BodyMain> {
                             RouteNames.configRoom,
                             queryParams: {
                               "pathEmailRequest": widget.pathEmailRequest,
+                              "typeUser": widget.typeUser,
                             },
                           );
                         },
@@ -197,6 +200,7 @@ class _BodyMainState extends State<BodyMain> {
                             RouteNames.configDevice,
                             queryParams: {
                               "pathEmailRequest": widget.pathEmailRequest,
+                              "typeUser": widget.typeUser,
                             },
                           );
                         },

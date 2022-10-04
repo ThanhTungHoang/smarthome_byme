@@ -13,11 +13,20 @@ class DashBoardRepository {
   final List<Messenger> messenger = [];
   bool unMessages = false;
   late final String userName;
+  String urlPhoto = '';
   Future<String> getInforUser() async {
     String? pathEmailRequest = await storage.read(key: "pathEmailRequest");
     String? emailUser = await storage.read(key: "emailUser");
     String? nameUser = await storage.read(key: "nameUser");
-    return "$pathEmailRequest-$emailUser-$nameUser";
+    return "$pathEmailRequest*$emailUser*$nameUser";
+  }
+
+  Future<String> getTypeUser() async {
+    final pathEmail = email!.replaceAll(find, replaceWith);
+    final responseTypeUser =
+        await ref.child('admin/$pathEmail/Infor/Type').get();
+    final String typeUser = responseTypeUser.value.toString();
+    return typeUser;
   }
 
   Future<bool> checkUnMessenger() async {
@@ -49,8 +58,6 @@ class DashBoardRepository {
     }
     return unMessages;
   }
-
-
 
   Future<List> getListRoom() async {
     final List listRoom = [];

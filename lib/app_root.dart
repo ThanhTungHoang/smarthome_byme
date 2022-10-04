@@ -4,7 +4,7 @@ import 'package:smarthome_byme/BLoC/scan_device_bloc/scan_device_bloc.dart';
 import 'package:smarthome_byme/resources/scandevice_repository.dart';
 import 'BLoC/auth_bloc/auth_bloc.dart';
 import 'BLoC/dashboard_bloc/dashboard_bloc.dart';
-import 'BLoC/dashboard_main_bloc/dashboard_main_bloc.dart';
+
 import 'core/app_colors.dart';
 import 'core/router/routes.dart';
 import 'resources/auth_repository.dart';
@@ -36,11 +36,6 @@ class AppRoot extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => DashboardBloc(
-              dashBoardRepository: context.read<DashBoardRepository>(),
-            ),
-          ),
-          BlocProvider(
-            create: (context) => DashboardMainBloc(
               dashBoardRepository: context.read<DashBoardRepository>(),
             ),
           ),

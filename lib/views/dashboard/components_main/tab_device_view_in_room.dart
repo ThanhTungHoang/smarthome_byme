@@ -1,9 +1,8 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:smarthome_byme/models/device/device_model.dart';
-import 'package:smarthome_byme/views/dashboard/components/device_components.dart';
+import 'package:smarthome_byme/views/dashboard/components_main/device_components.dart';
 
 class TabDeviceViewInRoom extends StatefulWidget {
   final String listRoom;

@@ -20,45 +20,60 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     );
     on<DashboardRequest>(
       ((event, emit) async {
-        // final checkUnMessenger = await dashBoardRepository.checkUnMessenger();
-        final checkUnMessenger = true;
+        emit(DashboardLoading());
+        final checkUnMessenger = await dashBoardRepository.checkUnMessenger();
+        final typeUser = await dashBoardRepository.getTypeUser();
         final String responseUserInfor =
             await dashBoardRepository.getInforUser();
-        String pathEmailRequest = responseUserInfor.split('-')[0];
-        String emailUser = responseUserInfor.split('-')[1];
-        String nameUser = responseUserInfor.split('-')[2];
-        log(pathEmailRequest);
-        log(emailUser);
-        log(nameUser);
-        DateTime now = DateTime.now();
-        final int timeHour;
+        // ignore: unnecessary_null_comparison
+        if (checkUnMessenger != null &&
+            typeUser.isNotEmpty &&
+            responseUserInfor.isNotEmpty) {
+          log(typeUser.toString());
+          log(responseUserInfor.toString());
+          log(checkUnMessenger.toString());
+          String pathEmailRequest = responseUserInfor.split('*')[0];
+          String emailUser = responseUserInfor.split('*')[1];
+          String nameUser = responseUserInfor.split('*')[2];
+          log(pathEmailRequest);
+          log(emailUser);
+          log(nameUser);
+          DateTime now = DateTime.now();
+          final int timeHour;
 
-        if (now.hour == 0) {
-          timeHour = 24;
-        } else {
-          timeHour = now.hour;
-        }
+          if (now.hour == 0) {
+            timeHour = 24;
+          } else {
+            timeHour = now.hour;
+          }
 
-        if (timeHour >= 1 && timeHour <= 12) {
-          emit(DashboardLoaded(
+          if (timeHour >= 1 && timeHour <= 12) {
+            emit(DashboardLoaded(
               pathEmail: pathEmailRequest,
               nameUser: nameUser,
               content: "Good morning!",
-              unMessenger: checkUnMessenger));
-        }
-        if (timeHour >= 13 && timeHour <= 18) {
-          emit(DashboardLoaded(
+              unMessenger: checkUnMessenger,
+              typeUser: typeUser,
+            ));
+          }
+          if (timeHour >= 13 && timeHour <= 18) {
+            emit(DashboardLoaded(
               pathEmail: pathEmailRequest,
               nameUser: nameUser,
               content: "Good afternoon!",
-              unMessenger: checkUnMessenger));
-        }
-        if (timeHour >= 19 && timeHour <= 24) {
-          emit(DashboardLoaded(
+              unMessenger: checkUnMessenger,
+              typeUser: typeUser,
+            ));
+          }
+          if (timeHour >= 19 && timeHour <= 24) {
+            emit(DashboardLoaded(
               pathEmail: pathEmailRequest,
               nameUser: nameUser,
               content: "Good everning!",
-              unMessenger: checkUnMessenger));
+              unMessenger: checkUnMessenger,
+              typeUser: typeUser,
+            ));
+          }
         }
       }),
     );
