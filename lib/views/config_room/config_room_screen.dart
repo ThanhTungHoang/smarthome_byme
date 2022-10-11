@@ -211,6 +211,23 @@ class _ConfigRoomScreenState extends State<ConfigRoomScreen> {
                           maxCountRoom = false;
                         }
                       }
+                      if (widget.typeUser == "Family") {
+                        if (countRoom >= 10) {
+                          maxCountRoom = true;
+                        } else {
+                          maxCountRoom = false;
+                        }
+                      }
+                      if (widget.typeUser == "Enterprise") {
+                        if (countRoom >= 100) {
+                          maxCountRoom = true;
+                        } else {
+                          maxCountRoom = false;
+                        }
+                      }
+                      if (widget.typeUser == "Unlimited") {
+                        maxCountRoom = false;
+                      }
                       return Text(
                         "Tổng số phòng: $countRoom",
                         style: const TextStyle(

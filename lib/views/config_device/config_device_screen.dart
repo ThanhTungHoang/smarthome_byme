@@ -70,10 +70,25 @@ class _ConfigDeviceScreenState extends State<ConfigDeviceScreen> {
                     width: MediaQuery.of(context).size.width,
                     child: OutlinedButton.icon(
                       onPressed: () {
-                        GoRouter.of(context).pushNamed(RouteNames.scanDevice,
-                            queryParams: {
-                              "pathEmailRequest": widget.pathEmailRequest
-                            });
+                        if (maxCountDevice == true) {
+                          final snackBar = SnackBar(
+                            content: const Text(
+                              'Đã đạt giới hạn thiết bị, vui lòng nâng cấp gói dịch vụ!',
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            backgroundColor: Colors.teal[100],
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        } else {
+                          GoRouter.of(context).pushNamed(RouteNames.scanDevice,
+                              queryParams: {
+                                "pathEmailRequest": widget.pathEmailRequest
+                              });
+                        }
                       },
                       icon: const Icon(
                         Icons.search_outlined,
@@ -81,7 +96,7 @@ class _ConfigDeviceScreenState extends State<ConfigDeviceScreen> {
                         color: Colors.blue,
                       ),
                       label: const Text(
-                        "Scan device by wifi",
+                        "Scan device with wifi",
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
@@ -96,18 +111,35 @@ class _ConfigDeviceScreenState extends State<ConfigDeviceScreen> {
                       .asBroadcastStream(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      final room = (snapshot.data!).snapshot.value
+                      final device = (snapshot.data!).snapshot.value
                           as Map<dynamic, dynamic>;
-                      int countRoom = room.keys.length;
+                      int countDevice = device.keys.length;
                       if (widget.typeUser == "Test User") {
-                        if (countRoom >= 3) {
+                        if (countDevice >= 3) {
                           maxCountDevice = true;
                         } else {
                           maxCountDevice = false;
                         }
                       }
+                      if (widget.typeUser == "Family") {
+                        if (countDevice >= 10) {
+                          maxCountDevice = true;
+                        } else {
+                          maxCountDevice = false;
+                        }
+                      }
+                      if (widget.typeUser == "Enterprise") {
+                        if (countDevice >= 100) {
+                          maxCountDevice = true;
+                        } else {
+                          maxCountDevice = false;
+                        }
+                      }
+                      if (widget.typeUser == "Unlimited") {
+                        maxCountDevice = false;
+                      }
                       return Text(
-                        "Tổng số thiết bị: $countRoom",
+                        "Tổng số thiết bị: $countDevice",
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,

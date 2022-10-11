@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smarthome_byme/BLoC/auth_bloc/auth_bloc.dart';
 import 'package:smarthome_byme/core/router/routes.dart';
+import 'package:smarthome_byme/views/dashboard/components_user/dialog_change_language.dart';
 import 'package:smarthome_byme/views/dashboard/components_user/top_user.dart';
 
 class DashBoardPageUser extends StatefulWidget {
@@ -56,22 +57,6 @@ class _DashBoardPageUserState extends State<DashBoardPageUser> {
               children: [
                 TextButton.icon(
                   onPressed: () {},
-                  icon: const Icon(
-                    Icons.edit,
-                    size: 25,
-                    color: Colors.red,
-                  ),
-                  label: const Text(
-                    "Chỉnh sửa thông tin người dùng",
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black87),
-                  ),
-                ),
-                const SizedBox(height: 5),
-                TextButton.icon(
-                  onPressed: () {},
                   icon: const Icon(Icons.arrow_upward_outlined,
                       color: Colors.green),
                   label: const Text(
@@ -84,7 +69,12 @@ class _DashBoardPageUserState extends State<DashBoardPageUser> {
                 ),
                 const SizedBox(height: 5),
                 TextButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) => const DialogChangeLanguage(),
+                    );
+                  },
                   icon: const Icon(
                     Icons.language,
                     color: Colors.purple,

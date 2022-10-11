@@ -17,7 +17,7 @@ dependencies:
   # Bloc
   flutter_bloc: ^8.0.1
   # Utils
-  equatable:
+  equatable: null
   # Image
   flutter_svg: ^1.1.0
   # Router
@@ -35,15 +35,15 @@ dependencies:
   # Premision
   permission_handler: ^10.0.1
   # Storage
+  shared_preferences: ^2.0.15
   flutter_secure_storage: ^6.0.0
   # UDP
   udp: ^5.0.3
   # Asset to abum
   image_picker: ^0.8.5+3
-
-
-
-
+  # Language
+  flutter_localizations:
+    sdk: flutter
 
   cupertino_icons: ^1.0.2
 
@@ -65,7 +65,6 @@ flutter:
     - assets/icons/
     - assets/icons/device/
     - assets/icons/navigation/
-
 
   fonts:
     - family: NotoSans
@@ -91,4 +90,5 @@ flutter:
           weight: 800
         - asset: assets/fonts/NotoSants/NotoSans-Black.ttf
           weight: 900
-  
+flutter_intl:
+  enabled: true

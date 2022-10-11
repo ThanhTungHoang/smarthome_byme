@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:smarthome_byme/BLoC/change_language_cubit/change_language_cubit.dart';
 import 'package:smarthome_byme/BLoC/scan_device_bloc/scan_device_bloc.dart';
+import 'package:smarthome_byme/generated/l10n.dart';
 import 'package:smarthome_byme/resources/scandevice_repository.dart';
 import 'BLoC/auth_bloc/auth_bloc.dart';
 import 'BLoC/dashboard_bloc/dashboard_bloc.dart';
@@ -17,6 +20,9 @@ class AppRoot extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
+        RepositoryProvider(
+          create: (context) => ChangeLanguageCubit(),
+        ),
         RepositoryProvider(
           create: (context) => AuthRepository(),
         ),
@@ -44,16 +50,31 @@ class AppRoot extends StatelessWidget {
                 scanDeviceRepository: context.read<ScanDeviceRepository>()),
           ),
         ],
-        child: MaterialApp.router(
-          theme: ThemeData(
-            scaffoldBackgroundColor: AppColors.colorBackground,
-            fontFamily: 'NotoSans',
-          ),
-          debugShowCheckedModeBanner: false,
-          routeInformationProvider: Routes.route.routeInformationProvider,
-          routeInformationParser: Routes.route.routeInformationParser,
-          routerDelegate: Routes.route.routerDelegate,
-          // title: 'GoRouter',
+        child: BlocBuilder<ChangeLanguageCubit, Locale>(
+          builder: (context, locale) {
+            return MaterialApp.router(
+              theme: ThemeData(
+                scaffoldBackgroundColor: AppColors.colorBackground,
+                fontFamily: 'NotoSans',
+              ),
+              debugShowCheckedModeBanner: false,
+              routeInformationProvider: Routes.route.routeInformationProvider,
+              routeInformationParser: Routes.route.routeInformationParser,
+              routerDelegate: Routes.route.routerDelegate,
+              locale: locale,
+              localizationsDelegates: const [
+                S.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: const [
+                Locale('en', "US"),
+                Locale('vi', "VN"),
+              ],
+              // title: 'GoRouter',
+            );
+          },
         ),
       ),
     );
