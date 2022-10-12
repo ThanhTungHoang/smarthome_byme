@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:smarthome_byme/generated/l10n.dart';
 import 'package:smarthome_byme/models/device/device_model.dart';
 import 'package:smarthome_byme/views/dashboard/components_main/device_components.dart';
 
@@ -53,10 +54,11 @@ class _TabDeviceViewInRoomState extends State<TabDeviceViewInRoom> {
               deviceList.clear();
             }
             if (deviceList.isEmpty) {
-              return const Center(
+              return Center(
                 child: Text(
-                  "No devices connected to the room yet!",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+                  S.of(context).no_devices_connected_to_the_room_yet,
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.w400),
                 ),
               );
             }
@@ -79,8 +81,12 @@ class _TabDeviceViewInRoomState extends State<TabDeviceViewInRoom> {
                     typeDevice: deviceList[index].typeDevice,
                   );
                 } else {
-                  return const Center(
-                    child: Text("No devices connected to the room yet!"),
+                  return Center(
+                    child: Text(
+                      S.of(context).no_devices_connected_to_the_room_yet,
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w400),
+                    ),
                   );
                 }
               },

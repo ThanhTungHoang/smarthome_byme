@@ -2,6 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smarthome_byme/core/router/routes.dart';
+import 'package:smarthome_byme/generated/l10n.dart';
 
 class TopMain extends StatefulWidget {
   final String pathEmailRequest;
@@ -67,14 +68,36 @@ class _TopMainState extends State<TopMain> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    widget.content,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xff464646),
+                  if (widget.content == "1") ...[
+                    Text(
+                      S.of(context).good_morning,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xff464646),
+                      ),
                     ),
-                  ),
+                  ],
+                  if (widget.content == "2") ...[
+                    Text(
+                      S.of(context).good_afternoon,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xff464646),
+                      ),
+                    ),
+                  ],
+                  if (widget.content == "3") ...[
+                    Text(
+                      S.of(context).good_everning,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xff464646),
+                      ),
+                    ),
+                  ],
                   Text(
                     widget.nameUser,
                     style: const TextStyle(

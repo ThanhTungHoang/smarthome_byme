@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smarthome_byme/BLoC/auth_bloc/auth_bloc.dart';
 import 'package:smarthome_byme/core/router/routes.dart';
+import 'package:smarthome_byme/generated/l10n.dart';
 import 'package:smarthome_byme/views/dashboard/components_user/dialog_change_language.dart';
 import 'package:smarthome_byme/views/dashboard/components_user/top_user.dart';
 
@@ -59,9 +60,9 @@ class _DashBoardPageUserState extends State<DashBoardPageUser> {
                   onPressed: () {},
                   icon: const Icon(Icons.arrow_upward_outlined,
                       color: Colors.green),
-                  label: const Text(
-                    "Nâng cấp gói",
-                    style: TextStyle(
+                  label: Text(
+                    S.of(context).service_upgrade,
+                    style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
                         color: Colors.black87),
@@ -79,9 +80,9 @@ class _DashBoardPageUserState extends State<DashBoardPageUser> {
                     Icons.language,
                     color: Colors.purple,
                   ),
-                  label: const Text(
-                    "Thay đổi ngôn ngữ",
-                    style: TextStyle(
+                  label: Text(
+                    S.of(context).change_language,
+                    style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
                         color: Colors.black87),
@@ -94,9 +95,9 @@ class _DashBoardPageUserState extends State<DashBoardPageUser> {
                     GoRouter.of(context).goNamed(RouteNames.signIn);
                   },
                   icon: const Icon(Icons.logout_outlined),
-                  label: const Text(
-                    "Đăng xuất",
-                    style: TextStyle(
+                  label: Text(
+                    S.of(context).log_out,
+                    style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
                         color: Colors.black87),

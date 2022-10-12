@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:smarthome_byme/generated/l10n.dart';
 
 class TopUser extends StatefulWidget {
   final String pathEmailRequest;
@@ -199,10 +200,22 @@ class _TopUserState extends State<TopUser> {
                   ),
                 ),
                 const SizedBox(height: 5),
-                Text(
-                  "User type: ${widget.typeUser}",
-                  style: const TextStyle(
-                      fontSize: 15, fontWeight: FontWeight.w300),
+                Text.rich(
+                  TextSpan(
+                    text: S.of(context).type_service,
+                    style: const TextStyle(
+                        fontSize: 15, fontWeight: FontWeight.w300),
+                    children: <InlineSpan>[
+                      const TextSpan(
+                        text: ": ",
+                      ),
+                      TextSpan(
+                        text: widget.typeUser,
+                        style: const TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.w300),
+                      )
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 5),
                 StreamBuilder(
@@ -217,36 +230,84 @@ class _TopUserState extends State<TopUser> {
 
                       String countDevice = device.keys.length.toString();
                       if (widget.typeUser == "Test User") {
-                        return Text(
-                          "Device number: $countDevice /3",
-                          style: const TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w300),
+                        return Text.rich(
+                          TextSpan(
+                            text: S.of(context).number_device_installed,
+                            style: const TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w300),
+                            children: <InlineSpan>[
+                              const TextSpan(
+                                text: ": ",
+                              ),
+                              TextSpan(
+                                text: "$countDevice /3",
+                                style: const TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.w300),
+                              )
+                            ],
+                          ),
                         );
                       }
                       if (widget.typeUser == "Family") {
-                        return Text(
-                          "Device number: $countDevice /10",
-                          style: const TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w300),
+                        return Text.rich(
+                          TextSpan(
+                            text: S.of(context).number_device_installed,
+                            style: const TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w300),
+                            children: <InlineSpan>[
+                              const TextSpan(
+                                text: ": ",
+                              ),
+                              TextSpan(
+                                text: "$countDevice /10",
+                                style: const TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.w300),
+                              )
+                            ],
+                          ),
                         );
                       }
                       if (widget.typeUser == "Enterprise") {
-                        return Text(
-                          "Device number: $countDevice /100",
-                          style: const TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w300),
+                        return Text.rich(
+                          TextSpan(
+                            text: S.of(context).number_device_installed,
+                            style: const TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w300),
+                            children: <InlineSpan>[
+                              const TextSpan(
+                                text: ": ",
+                              ),
+                              TextSpan(
+                                text: "$countDevice /100",
+                                style: const TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.w300),
+                              )
+                            ],
+                          ),
                         );
                       }
                       if (widget.typeUser == "Unlimited") {
-                        return Text(
-                          "Device number: $countDevice /Unlimited",
-                          style: const TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w300),
+                        return Text.rich(
+                          TextSpan(
+                            text: S.of(context).number_device_installed,
+                            style: const TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w300),
+                            children: <InlineSpan>[
+                              const TextSpan(
+                                text: ": ",
+                              ),
+                              TextSpan(
+                                text: "$countDevice /Unlimited",
+                                style: const TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.w300),
+                              )
+                            ],
+                          ),
                         );
                       }
                     }
                     return const Text(
-                      "Device number: Loading...",
+                      "Loading...",
                       style:
                           TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
                     );
@@ -265,36 +326,84 @@ class _TopUserState extends State<TopUser> {
 
                       String countRoom = room.keys.length.toString();
                       if (widget.typeUser == "Test User") {
-                        return Text(
-                          "Room number: $countRoom /3",
-                          style: const TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w300),
+                        return Text.rich(
+                          TextSpan(
+                            text: S.of(context).number_room_installed,
+                            style: const TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w300),
+                            children: <InlineSpan>[
+                              const TextSpan(
+                                text: ": ",
+                              ),
+                              TextSpan(
+                                text: "$countRoom /3",
+                                style: const TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.w300),
+                              )
+                            ],
+                          ),
                         );
                       }
                       if (widget.typeUser == "Family") {
-                        return Text(
-                          "Room number: $countRoom /10",
-                          style: const TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w300),
+                        return Text.rich(
+                          TextSpan(
+                            text: S.of(context).number_room_installed,
+                            style: const TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w300),
+                            children: <InlineSpan>[
+                              const TextSpan(
+                                text: ": ",
+                              ),
+                              TextSpan(
+                                text: "$countRoom /10",
+                                style: const TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.w300),
+                              )
+                            ],
+                          ),
                         );
                       }
                       if (widget.typeUser == "Enterprise") {
-                        return Text(
-                          "Room number: $countRoom /100",
-                          style: const TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w300),
+                        return Text.rich(
+                          TextSpan(
+                            text: S.of(context).number_room_installed,
+                            style: const TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w300),
+                            children: <InlineSpan>[
+                              const TextSpan(
+                                text: ": ",
+                              ),
+                              TextSpan(
+                                text: "$countRoom /100",
+                                style: const TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.w300),
+                              )
+                            ],
+                          ),
                         );
                       }
                       if (widget.typeUser == "Unlimited") {
-                        return Text(
-                          "Room number: $countRoom /Unlimited",
-                          style: const TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w300),
+                        return Text.rich(
+                          TextSpan(
+                            text: S.of(context).number_room_installed,
+                            style: const TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w300),
+                            children: <InlineSpan>[
+                              const TextSpan(
+                                text: ": ",
+                              ),
+                              TextSpan(
+                                text: "$countRoom /Unlimited",
+                                style: const TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.w300),
+                              )
+                            ],
+                          ),
                         );
                       }
                     }
                     return const Text(
-                      "Room number: Loading...",
+                      "Loading...",
                       style:
                           TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
                     );

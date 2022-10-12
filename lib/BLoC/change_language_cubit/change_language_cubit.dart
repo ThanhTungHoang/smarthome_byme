@@ -16,18 +16,20 @@ class ChangeLanguageCubit extends Cubit<Locale> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? langCode = prefs.getString('languageCode');
     String? coutryCode = prefs.getString('countryCode');
-    print(langCode);
     if (langCode == null && coutryCode == null) {
       if (defaultLocale == "vi_VN") {
-        // print("vietnam null");
-        emit(const Locale("vi", "VN"));
-      }
-    } else {
-      if (langCode == "vi_VN") {
-        // print("vietnam");
+        await prefs.setString('languageCode', "vi");
+        await prefs.setString('countryCode', "VN");
         emit(const Locale("vi", "VN"));
       } else {
-        // print("english");
+        await prefs.setString('languageCode', "en");
+        await prefs.setString('countryCode', "US");
+        emit(const Locale("en", "US"));
+      }
+    } else {
+      if (langCode == "vi") {
+        emit(const Locale("vi", "VN"));
+      } else {
         emit(const Locale("en", "US"));
       }
     }
@@ -35,10 +37,9 @@ class ChangeLanguageCubit extends Cubit<Locale> {
 
   Future<void> changeLanguage(
       {required String languageCode, required String countryCode}) async {
-  
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('languageCode', languageCode);
     await prefs.setString('countryCode', countryCode);
-   emit(Locale(languageCode, countryCode));
+    emit(Locale(languageCode, countryCode));
   }
 }

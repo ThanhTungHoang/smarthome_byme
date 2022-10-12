@@ -6,5 +6,7 @@ abstract class DashboardEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
 class DashboardCkeckLogout extends DashboardEvent {}
+
 class DashboardRequest extends DashboardEvent {}

@@ -6,6 +6,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smarthome_byme/core/router/routes.dart';
+import 'package:smarthome_byme/generated/l10n.dart';
 import 'package:smarthome_byme/models/device/device_model.dart';
 import 'package:smarthome_byme/views/dashboard/components_main/device_components_tab_add_device.dart';
 import 'package:smarthome_byme/views/dashboard/components_main/tab_device_view_in_room.dart';
@@ -69,10 +70,10 @@ class _BodyMainState extends State<BodyMain> {
                     indicatorPadding: EdgeInsets.only(right: 20),
                   ),
                   tabs: [
-                    const Text(
-                      "Tất cả thiết bị",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+                    Text(
+                      S.of(context).all_device,
+                      style: const TextStyle(
+                          fontSize: 22, fontWeight: FontWeight.w500),
                     ),
                     for (int i = 0; i < listRoom.length; i++) ...[
                       Text(
@@ -115,8 +116,8 @@ class _BodyMainState extends State<BodyMain> {
                           return Center(
                             child: Column(
                               children: [
-                                const Text(
-                                  "No device installed!",
+                                Text(
+                                  S.of(context).number_device_installed,
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w400),
@@ -131,8 +132,8 @@ class _BodyMainState extends State<BodyMain> {
                                       },
                                     );
                                   },
-                                  child: const Text(
-                                    "Click here to add a device.",
+                                  child: Text(
+                                    S.of(context).click_add_device,
                                     style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.w400),
@@ -182,10 +183,10 @@ class _BodyMainState extends State<BodyMain> {
                     enabled: true,
                     itemBuilder: (BuildContext context) => [
                       PopupMenuItem(
-                        child: const Text("Thêm phòng"),
+                        child: Text(S.of(context).config_device),
                         onTap: () {
-                          GoRouter.of(context).goNamed(
-                            RouteNames.configRoom,
+                          GoRouter.of(context).pushNamed(
+                            RouteNames.configDevice,
                             queryParams: {
                               "pathEmailRequest": widget.pathEmailRequest,
                               "typeUser": widget.typeUser,
@@ -194,10 +195,10 @@ class _BodyMainState extends State<BodyMain> {
                         },
                       ),
                       PopupMenuItem(
-                        child: const Text("Thêm thiết bị"),
+                        child: Text(S.of(context).config_room),
                         onTap: () {
-                          GoRouter.of(context).pushNamed(
-                            RouteNames.configDevice,
+                          GoRouter.of(context).goNamed(
+                            RouteNames.configRoom,
                             queryParams: {
                               "pathEmailRequest": widget.pathEmailRequest,
                               "typeUser": widget.typeUser,

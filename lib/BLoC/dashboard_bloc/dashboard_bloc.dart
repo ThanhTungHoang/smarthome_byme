@@ -1,7 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smarthome_byme/generated/l10n.dart';
 import 'package:smarthome_byme/resources/dashboard_repository.dart';
 
 part 'dashboard_event.dart';
@@ -51,7 +55,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
             emit(DashboardLoaded(
               pathEmail: pathEmailRequest,
               nameUser: nameUser,
-              content: "Good morning!",
+              content: "1",
               unMessenger: checkUnMessenger,
               typeUser: typeUser,
             ));
@@ -60,7 +64,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
             emit(DashboardLoaded(
               pathEmail: pathEmailRequest,
               nameUser: nameUser,
-              content: "Good afternoon!",
+              content: "2",
               unMessenger: checkUnMessenger,
               typeUser: typeUser,
             ));
@@ -69,7 +73,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
             emit(DashboardLoaded(
               pathEmail: pathEmailRequest,
               nameUser: nameUser,
-              content: "Good everning!",
+              content: "3",
               unMessenger: checkUnMessenger,
               typeUser: typeUser,
             ));

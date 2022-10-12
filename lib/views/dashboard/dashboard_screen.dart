@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:smarthome_byme/BLoC/change_language_cubit/change_language_cubit.dart';
 import 'package:smarthome_byme/BLoC/dashboard_bloc/dashboard_bloc.dart';
 import 'package:smarthome_byme/core/router/routes.dart';
+import 'package:smarthome_byme/generated/l10n.dart';
 import 'package:smarthome_byme/views/dashboard/pages/dashboard_page_enegry.dart';
 import 'package:smarthome_byme/views/dashboard/pages/dashboard_page_main.dart';
 import 'package:smarthome_byme/views/dashboard/pages/dashboard_page_user.dart';
@@ -24,6 +26,7 @@ class _DashBoardScreenState extends State<DashBoardScreen>
   bool get wantKeepAlive => true;
   @override
   void initState() {
+    context.read<ChangeLanguageCubit>().getLanguage();
     context.read<DashboardBloc>().add(DashboardCkeckLogout());
     context.read<DashboardBloc>().add(DashboardRequest());
     super.initState();
@@ -52,24 +55,24 @@ class _DashBoardScreenState extends State<DashBoardScreen>
             unselectedItemColor: Colors.blue,
             currentIndex: _selectedIndex,
             onTap: _onItemTapped,
-            items: const <BottomNavigationBarItem>[
+            items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: ImageIcon(
+                icon: const ImageIcon(
                     AssetImage("assets/icons/navigation/ic_home.png"),
                     size: 24),
-                label: "Home",
+                label: S.of(context).dashboard,
               ),
-              BottomNavigationBarItem(
+              const BottomNavigationBarItem(
                 icon: ImageIcon(
                     AssetImage("assets/icons/navigation/ic_enegry.png"),
                     size: 24),
-                label: "Enegry",
+                label: "Automatic",
               ),
               BottomNavigationBarItem(
-                icon: ImageIcon(
+                icon: const ImageIcon(
                     AssetImage("assets/icons/navigation/ic_user.png"),
                     size: 24),
-                label: "User",
+                label: S.of(context).user,
               ),
             ],
           ),

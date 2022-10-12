@@ -1,4 +1,30 @@
 {
-    "change_language" : "Thay đổi ngôn ngữ"
+    "language_selection" : "Lựa chọn ngôn ngữ",
+    "change_language": "Thay đổi ngôn ngữ",
+    "vietnamese" : "Tiếng việt",
+    "english": "Tiếng anh",
+    "change": "Thay đổi",
+    "cancel": "Trở lại",
+    "service_upgrade" : "Nâng cấp dịch vụ",
+    "log_out": "Đăng xuất",
+    "type_service": "Loại dịch vụ",
+    "number_device_installed": "Số thiết bị đã cài đặt",
+    "number_room_installed" : "Số phòng đã thiết lập",
+    "user": "Tôi",
+
+    "dashboard": "Bảng điều kiển",
+    "all_device": "Tất cả thiết bị",
+    "config_room": "Thiết lập phòng",
+    "config_device": "Thiết lập thiết bị",
+    "good_everning": "Chào buổi tối!",
+    "good_afternoon": "Chào buổi chiều!",
+    "good_morning": "Chào buổi sáng!",
+    "No_device_installed": "Chưa có thiết bị được cài đặt!",
+    "No_room_installed": "Chưa có Phòng được thiết lập!",
+   "click_add_device": "Bấm vào đây để thêm thiết bị mới!",
+   "no_devices_connected_to_the_room_yet": "Chưa có thiết bị nào được kết nối với phòng!",
+   "mailbox": "Hộp thư"
+
+
 
 }

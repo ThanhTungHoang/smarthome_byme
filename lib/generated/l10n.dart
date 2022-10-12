@@ -50,11 +50,241 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Language selection`
+  String get language_selection {
+    return Intl.message(
+      'Language selection',
+      name: 'language_selection',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Change language`
   String get change_language {
     return Intl.message(
       'Change language',
       name: 'change_language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vietnamese`
+  String get vietnamese {
+    return Intl.message(
+      'Vietnamese',
+      name: 'vietnamese',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `English`
+  String get english {
+    return Intl.message(
+      'English',
+      name: 'english',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change`
+  String get change {
+    return Intl.message(
+      'Change',
+      name: 'change',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Service upgrade`
+  String get service_upgrade {
+    return Intl.message(
+      'Service upgrade',
+      name: 'service_upgrade',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Log out`
+  String get log_out {
+    return Intl.message(
+      'Log out',
+      name: 'log_out',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Type service`
+  String get type_service {
+    return Intl.message(
+      'Type service',
+      name: 'type_service',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Number installed device`
+  String get number_device_installed {
+    return Intl.message(
+      'Number installed device',
+      name: 'number_device_installed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Number installed Room`
+  String get number_room_installed {
+    return Intl.message(
+      'Number installed Room',
+      name: 'number_room_installed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User`
+  String get user {
+    return Intl.message(
+      'User',
+      name: 'user',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dashboard`
+  String get dashboard {
+    return Intl.message(
+      'Dashboard',
+      name: 'dashboard',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All device`
+  String get all_device {
+    return Intl.message(
+      'All device',
+      name: 'all_device',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `config room`
+  String get config_room {
+    return Intl.message(
+      'config room',
+      name: 'config_room',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Config device`
+  String get config_device {
+    return Intl.message(
+      'Config device',
+      name: 'config_device',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Good everning!`
+  String get good_everning {
+    return Intl.message(
+      'Good everning!',
+      name: 'good_everning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Good afternoon!`
+  String get good_afternoon {
+    return Intl.message(
+      'Good afternoon!',
+      name: 'good_afternoon',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Good morning!`
+  String get good_morning {
+    return Intl.message(
+      'Good morning!',
+      name: 'good_morning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No device installed!`
+  String get No_device_installed {
+    return Intl.message(
+      'No device installed!',
+      name: 'No_device_installed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No room installed!`
+  String get No_room_installed {
+    return Intl.message(
+      'No room installed!',
+      name: 'No_room_installed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Click here to add a new device!`
+  String get click_add_device {
+    return Intl.message(
+      'Click here to add a new device!',
+      name: 'click_add_device',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No devices connected to the room yet!`
+  String get no_devices_connected_to_the_room_yet {
+    return Intl.message(
+      'No devices connected to the room yet!',
+      name: 'no_devices_connected_to_the_room_yet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mailbox`
+  String get mailbox {
+    return Intl.message(
+      'Mailbox',
+      name: 'mailbox',
       desc: '',
       args: [],
     );

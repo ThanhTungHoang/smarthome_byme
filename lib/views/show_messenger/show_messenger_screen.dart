@@ -4,6 +4,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smarthome_byme/core/router/routes.dart';
+import 'package:smarthome_byme/generated/l10n.dart';
 import 'package:smarthome_byme/models/messenger/messenger_model.dart';
 
 class ShowMessengerScreen extends StatefulWidget {
@@ -17,7 +18,6 @@ class ShowMessengerScreen extends StatefulWidget {
 class _ShowMessengerScreenState extends State<ShowMessengerScreen> {
   late String pathMessenger;
   final List<Messenger> listMessenger = [];
-  final List a = [1];
   @override
   Widget build(BuildContext context) {
     pathMessenger = "admin/${widget.pathEmailRequest}/Messenger/";
@@ -41,9 +41,9 @@ class _ShowMessengerScreenState extends State<ShowMessengerScreen> {
                   ),
                 ),
                 const Spacer(),
-                const Text(
-                  'Messenger',
-                  style: TextStyle(
+                Text(
+                  S.of(context).mailbox,
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
                   ),
