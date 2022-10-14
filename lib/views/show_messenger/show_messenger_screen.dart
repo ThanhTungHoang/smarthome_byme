@@ -96,14 +96,7 @@ class _ShowMessengerScreenState extends State<ShowMessengerScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                if (listMessenger[index].seen == true) ...[
-                                  const Icon(Icons.check),
-                                ],
-                                if (listMessenger[index].seen == false) ...[
-                                  const Icon(
-                                      Icons.notifications_active_outlined),
-                                ],
-                                const SizedBox(width: 15),
+                                const SizedBox(width: 5),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -124,39 +117,32 @@ class _ShowMessengerScreenState extends State<ShowMessengerScreen> {
                                 const Spacer(),
                                 if (listMessenger[index].seen == true) ...[
                                   TextButton(
-                                    onPressed: () async {
-                                      DatabaseReference ref =
-                                          FirebaseDatabase.instance.ref(
-                                              "$pathMessenger/${listMessenger[index].title}");
-                                      await ref.update(
-                                        {
-                                          "seen": false,
-                                        },
-                                      );
-                                    },
-                                    child: const Text(
-                                      "Mark as unread",
-                                      style: TextStyle(color: Colors.green),
-                                    ),
-                                  ),
+                                      onPressed: () async {
+                                        DatabaseReference ref =
+                                            FirebaseDatabase.instance.ref(
+                                                "$pathMessenger/${listMessenger[index].title}");
+                                        await ref.update(
+                                          {
+                                            "seen": false,
+                                          },
+                                        );
+                                      },
+                                      child: Icon(Icons.done_all)),
                                 ],
                                 if (listMessenger[index].seen == false) ...[
                                   TextButton(
-                                    onPressed: () async {
-                                      DatabaseReference ref =
-                                          FirebaseDatabase.instance.ref(
-                                              "$pathMessenger/${listMessenger[index].title}");
-                                      await ref.update(
-                                        {
-                                          "seen": true,
-                                        },
-                                      );
-                                    },
-                                    child: const Text(
-                                      "Mark read",
-                                      style: TextStyle(color: Colors.red),
-                                    ),
-                                  ),
+                                      onPressed: () async {
+                                        DatabaseReference ref =
+                                            FirebaseDatabase.instance.ref(
+                                                "$pathMessenger/${listMessenger[index].title}");
+                                        await ref.update(
+                                          {
+                                            "seen": true,
+                                          },
+                                        );
+                                      },
+                                      child: const Icon(
+                                          Icons.notifications_active_rounded)),
                                 ],
                               ],
                             ),

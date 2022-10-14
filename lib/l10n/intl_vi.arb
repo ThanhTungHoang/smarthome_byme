@@ -23,7 +23,27 @@
     "No_room_installed": "Chưa có Phòng được thiết lập!",
    "click_add_device": "Bấm vào đây để thêm thiết bị mới!",
    "no_devices_connected_to_the_room_yet": "Chưa có thiết bị nào được kết nối với phòng!",
-   "mailbox": "Hộp thư"
+   "mailbox": "Hộp thư",
+   "try_reload_page": "Thử tải lại trang...",
+
+   "enter_new_name_room": "Nhập tên phòng mới:",
+   "add_room": "Thêm phòng",
+   "total_number_room": "Tổng số phòng:",
+   "max_room": "Tối đa phòng:",
+   "list_room_available": "Danh sách phòng hiện có:",
+   "change_name_room": "Thay đổi tên phòng",
+   "delete_room": "Xóa phòng",
+   "delete": "Xóa",
+   "warning": "Cảnh báo!",
+   "are_y_want_delete": "Bạn chắc chắn muốn xóa:",
+   "this_room_already_exists": "Phòng này đã tổn tại!",
+   "room_limit_please_upgrade_service": "Đã đạt giới hạn phòng, vui lòng nâng cấp gói dịch vụ!",
+   "empty": "Trống!",
+   "enter_new_name": "Nhập tên mới:"
+   
+
+
+   
 
 
 

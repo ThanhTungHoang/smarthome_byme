@@ -26,26 +26,40 @@ class MessageLookup extends MessageLookupByLibrary {
             "Chưa có thiết bị được cài đặt!"),
         "No_room_installed": MessageLookupByLibrary.simpleMessage(
             "Chưa có Phòng được thiết lập!"),
+        "add_room": MessageLookupByLibrary.simpleMessage("Thêm phòng"),
         "all_device": MessageLookupByLibrary.simpleMessage("Tất cả thiết bị"),
+        "are_y_want_delete":
+            MessageLookupByLibrary.simpleMessage("Bạn chắc chắn muốn xóa:"),
         "cancel": MessageLookupByLibrary.simpleMessage("Trở lại"),
         "change": MessageLookupByLibrary.simpleMessage("Thay đổi"),
         "change_language":
             MessageLookupByLibrary.simpleMessage("Thay đổi ngôn ngữ"),
+        "change_name_room":
+            MessageLookupByLibrary.simpleMessage("Thay đổi tên phòng"),
         "click_add_device": MessageLookupByLibrary.simpleMessage(
             "Bấm vào đây để thêm thiết bị mới!"),
         "config_device":
             MessageLookupByLibrary.simpleMessage("Thiết lập thiết bị"),
         "config_room": MessageLookupByLibrary.simpleMessage("Thiết lập phòng"),
         "dashboard": MessageLookupByLibrary.simpleMessage("Bảng điều kiển"),
+        "delete": MessageLookupByLibrary.simpleMessage("Xóa"),
+        "delete_room": MessageLookupByLibrary.simpleMessage("Xóa phòng"),
+        "empty": MessageLookupByLibrary.simpleMessage("Trống!"),
         "english": MessageLookupByLibrary.simpleMessage("Tiếng anh"),
+        "enter_new_name": MessageLookupByLibrary.simpleMessage("Nhập tên mới:"),
+        "enter_new_name_room":
+            MessageLookupByLibrary.simpleMessage("Nhập tên phòng mới:"),
         "good_afternoon":
             MessageLookupByLibrary.simpleMessage("Chào buổi chiều!"),
         "good_everning": MessageLookupByLibrary.simpleMessage("Chào buổi tối!"),
         "good_morning": MessageLookupByLibrary.simpleMessage("Chào buổi sáng!"),
         "language_selection":
             MessageLookupByLibrary.simpleMessage("Lựa chọn ngôn ngữ"),
+        "list_room_available":
+            MessageLookupByLibrary.simpleMessage("Danh sách phòng hiện có:"),
         "log_out": MessageLookupByLibrary.simpleMessage("Đăng xuất"),
         "mailbox": MessageLookupByLibrary.simpleMessage("Hộp thư"),
+        "max_room": MessageLookupByLibrary.simpleMessage("Tối đa phòng:"),
         "no_devices_connected_to_the_room_yet":
             MessageLookupByLibrary.simpleMessage(
                 "Chưa có thiết bị nào được kết nối với phòng!"),
@@ -53,10 +67,20 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Số thiết bị đã cài đặt"),
         "number_room_installed":
             MessageLookupByLibrary.simpleMessage("Số phòng đã thiết lập"),
+        "room_limit_please_upgrade_service":
+            MessageLookupByLibrary.simpleMessage(
+                "Đã đạt giới hạn phòng, vui lòng nâng cấp gói dịch vụ!"),
         "service_upgrade":
             MessageLookupByLibrary.simpleMessage("Nâng cấp dịch vụ"),
+        "this_room_already_exists":
+            MessageLookupByLibrary.simpleMessage("Phòng này đã tổn tại!"),
+        "total_number_room":
+            MessageLookupByLibrary.simpleMessage("Tổng số phòng:"),
+        "try_reload_page":
+            MessageLookupByLibrary.simpleMessage("Thử tải lại trang..."),
         "type_service": MessageLookupByLibrary.simpleMessage("Loại dịch vụ"),
         "user": MessageLookupByLibrary.simpleMessage("Tôi"),
-        "vietnamese": MessageLookupByLibrary.simpleMessage("Tiếng việt")
+        "vietnamese": MessageLookupByLibrary.simpleMessage("Tiếng việt"),
+        "warning": MessageLookupByLibrary.simpleMessage("Cảnh báo!")
       };
 }

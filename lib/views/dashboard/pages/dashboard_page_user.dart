@@ -27,6 +27,7 @@ class _DashBoardPageUserState extends State<DashBoardPageUser> {
   late String pathRoom;
   late String pathInfor;
   late String pathUrlPhoto;
+  bool changeInfor = false;
   @override
   Widget build(BuildContext context) {
     pathDevice = "admin/${widget.pathEmailRequest}/Device/";
@@ -42,6 +43,7 @@ class _DashBoardPageUserState extends State<DashBoardPageUser> {
             pathEmailRequest: widget.pathEmailRequest,
             nameUser: widget.nameUser,
             typeUser: widget.typeUser,
+            changeInfor: changeInfor,
           ),
           const SizedBox(height: 20),
           Container(

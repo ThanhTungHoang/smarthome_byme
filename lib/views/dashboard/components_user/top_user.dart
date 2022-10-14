@@ -7,16 +7,19 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:smarthome_byme/generated/l10n.dart';
+import 'package:smarthome_byme/views/dashboard/components_user/dialog_change_name.dart';
 
 class TopUser extends StatefulWidget {
   final String pathEmailRequest;
   final String nameUser;
   final String typeUser;
+  final bool changeInfor;
   const TopUser(
       {super.key,
       required this.pathEmailRequest,
       required this.nameUser,
-      required this.typeUser});
+      required this.typeUser,
+      required this.changeInfor});
 
   @override
   State<TopUser> createState() => _TopUserState();
@@ -27,6 +30,8 @@ class _TopUserState extends State<TopUser> {
   late String pathRoom;
   late String pathInfor;
   late String pathUrlPhoto;
+  // bool change = widget.changeInfor;
+
   @override
   Widget build(BuildContext context) {
     pathDevice = "admin/${widget.pathEmailRequest}/Device/";
@@ -42,137 +47,142 @@ class _TopUserState extends State<TopUser> {
           Radius.circular(15.0),
         ),
       ),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(
-                children: [
-                  StreamBuilder(
-                    stream: FirebaseDatabase.instance
-                        .ref(pathUrlPhoto)
-                        .onValue
-                        .asBroadcastStream(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        final String urlPhoto =
-                            (snapshot.data!).snapshot.value.toString();
+          Center(
+            child: Column(
+              children: [
+                Stack(
+                  children: [
+                    StreamBuilder(
+                      stream: FirebaseDatabase.instance
+                          .ref(pathUrlPhoto)
+                          .onValue
+                          .asBroadcastStream(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          final String urlPhoto =
+                              (snapshot.data!).snapshot.value.toString();
 
-                        if (urlPhoto == "") {
-                          return const CircleAvatar(
-                            radius: 40,
-                            backgroundImage:
-                                AssetImage("assets/images/user_defaut.png"),
-                          );
-                        } else {
-                          return CircleAvatar(
-                            radius: 40,
-                            backgroundImage: NetworkImage(urlPhoto),
-                          );
-                        }
-                      }
-                      return const CircleAvatar(
-                        radius: 40,
-                        backgroundImage:
-                            AssetImage("assets/images/user_defaut.png"),
-                      );
-                    },
-                  ),
-                  Positioned(
-                    bottom: 1,
-                    right: 1,
-                    child: InkWell(
-                      onTap: () async {
-                        final String avatarName =
-                            "${widget.pathEmailRequest}.jpg";
-                        final storageRef = FirebaseStorage.instance.ref();
-                        final avatarRef = storageRef.child(avatarName);
-                        final ImagePicker picker = ImagePicker();
-
-                        await Permission.photos.request();
-                        var permissionStatus = await Permission.photos.status;
-
-                        if (permissionStatus.isGranted) {
-                          final XFile? image = await picker.pickImage(
-                              source: ImageSource.gallery);
-                          var file = File(image!.path);
-                          log(image.path);
-                          // ignore: unnecessary_null_comparison
-                          if (image != null) {
-                            try {
-                              await avatarRef.putFile(file);
-                            } on FirebaseException catch (e) {
-                              log(e.message.toString());
-                            }
+                          if (urlPhoto == "") {
+                            return const CircleAvatar(
+                              radius: 40,
+                              backgroundImage:
+                                  AssetImage("assets/images/user_defaut.png"),
+                            );
                           } else {
-                            log('No Image Path Received');
-                          }
-                          final urlPhotoLink = await avatarRef.getDownloadURL();
-                          if (urlPhotoLink.isNotEmpty) {
-                            log(urlPhotoLink);
-                            DatabaseReference ref =
-                                FirebaseDatabase.instance.ref(pathInfor);
-                            await ref.update(
-                              {
-                                "UrlPhoto": urlPhotoLink,
-                              },
+                            return CircleAvatar(
+                              radius: 40,
+                              backgroundImage: NetworkImage(urlPhoto),
                             );
                           }
-                        } else {
-                          log('Permission not granted. Try Again with permission access');
                         }
+                        return const CircleAvatar(
+                          radius: 40,
+                          backgroundImage:
+                              AssetImage("assets/images/user_defaut.png"),
+                        );
                       },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.white,
-                            ),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(
-                                50,
+                    ),
+                    Positioned(
+                      bottom: 1,
+                      right: 1,
+                      child: InkWell(
+                        onTap: () async {
+                          final String avatarName =
+                              "${widget.pathEmailRequest}.jpg";
+                          final storageRef = FirebaseStorage.instance.ref();
+                          final avatarRef = storageRef.child(avatarName);
+                          final ImagePicker picker = ImagePicker();
+
+                          await Permission.photos.request();
+                          var permissionStatus = await Permission.photos.status;
+
+                          if (permissionStatus.isGranted) {
+                            final XFile? image = await picker.pickImage(
+                                source: ImageSource.gallery);
+                            var file = File(image!.path);
+                            log(image.path);
+                            // ignore: unnecessary_null_comparison
+                            if (image != null) {
+                              try {
+                                await avatarRef.putFile(file);
+                              } on FirebaseException catch (e) {
+                                log(e.message.toString());
+                              }
+                            } else {
+                              log('No Image Path Received');
+                            }
+                            final urlPhotoLink =
+                                await avatarRef.getDownloadURL();
+                            if (urlPhotoLink.isNotEmpty) {
+                              log(urlPhotoLink);
+                              DatabaseReference ref =
+                                  FirebaseDatabase.instance.ref(pathInfor);
+                              await ref.update(
+                                {
+                                  "UrlPhoto": urlPhotoLink,
+                                },
+                              );
+                            }
+                          } else {
+                            log('Permission not granted. Try Again with permission access');
+                          }
+                          // widget.changeInfor = true;
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.white,
                               ),
-                            ),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                offset: const Offset(2, 4),
-                                color: Colors.black.withOpacity(
-                                  0.3,
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(
+                                  50,
                                 ),
-                                blurRadius: 3,
                               ),
-                            ]),
-                        child: const Padding(
-                          padding: EdgeInsets.all(2.0),
-                          child: Icon(
-                            Icons.edit,
-                            color: Colors.red,
-                            size: 20,
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  offset: const Offset(2, 4),
+                                  color: Colors.black.withOpacity(
+                                    0.3,
+                                  ),
+                                  blurRadius: 3,
+                                ),
+                              ]),
+                          child: const Padding(
+                            padding: EdgeInsets.all(2.0),
+                            child: Icon(
+                              Icons.edit,
+                              color: Colors.red,
+                              size: 20,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              )
-            ],
-          ),
-          const SizedBox(width: 15),
-          SizedBox(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+                  ],
+                ),
+                //
                 Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
                       widget.nameUser,
                       style: const TextStyle(
-                          fontSize: 22, fontWeight: FontWeight.w500),
+                          fontSize: 23, fontWeight: FontWeight.w500),
                     ),
                     const SizedBox(width: 5),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (_) => DialogChangeName(
+                              pathEmailRequest: widget.pathEmailRequest),
+                        );
+                        // widget.changeInfor = true;
+                      },
                       child: Icon(
                         Icons.edit,
                         color: Colors.cyan[400],
@@ -181,23 +191,29 @@ class _TopUserState extends State<TopUser> {
                     ),
                   ],
                 ),
+              ],
+            ),
+          ),
+          // if (widgetchangeInfor == true) ...[
+          //   Text(
+          //     "khowi dong laij de cap nhap",
+          //     style: const TextStyle(fontSize: 23, fontWeight: FontWeight.w500),
+          //   ),
+          // ],
+          const SizedBox(height: 10),
+          SizedBox(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
                 const SizedBox(height: 5),
-                SizedBox(
-                  width: 237,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          widget.pathEmailRequest,
-                          style: const TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w400),
-                          softWrap: true,
-                          maxLines: 2,
-                          overflow: TextOverflow.fade,
-                        ),
-                      ),
-                    ],
-                  ),
+                Row(
+                  children: [
+                    Text(
+                      widget.pathEmailRequest,
+                      style: const TextStyle(
+                          fontSize: 17, fontWeight: FontWeight.w400),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 5),
                 Text.rich(

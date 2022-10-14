@@ -101,7 +101,7 @@ class _TopMainState extends State<TopMain> {
                   Text(
                     widget.nameUser,
                     style: const TextStyle(
-                      fontSize: 22,
+                      fontSize: 21,
                       fontWeight: FontWeight.w700,
                       color: Color(0xff464646),
                     ),

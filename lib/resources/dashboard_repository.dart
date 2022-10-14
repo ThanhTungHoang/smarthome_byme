@@ -7,7 +7,7 @@ import 'package:smarthome_byme/models/messenger/messenger_model.dart';
 class DashBoardRepository {
   final storage = const FlutterSecureStorage();
   final ref = FirebaseDatabase.instance.ref();
-  final email = FirebaseAuth.instance.currentUser?.email;
+
   final find = '.';
   final replaceWith = '_';
   final List<Messenger> messenger = [];
@@ -22,6 +22,7 @@ class DashBoardRepository {
   }
 
   Future<String> getTypeUser() async {
+    final email = FirebaseAuth.instance.currentUser?.email;
     final pathEmail = email!.replaceAll(find, replaceWith);
     final responseTypeUser =
         await ref.child('admin/$pathEmail/Infor/Type').get();
@@ -30,6 +31,7 @@ class DashBoardRepository {
   }
 
   Future<bool> checkUnMessenger() async {
+    final email = FirebaseAuth.instance.currentUser?.email;
     final pathEmail = email!.replaceAll(find, replaceWith);
     try {
       final notificationRawData =
@@ -61,7 +63,7 @@ class DashBoardRepository {
 
   Future<List> getListRoom() async {
     final List listRoom = [];
-
+    final email = FirebaseAuth.instance.currentUser?.email;
     final pathEmail = email!.replaceAll(find, replaceWith);
     DatabaseReference starCountRef =
         FirebaseDatabase.instance.ref('admin/$pathEmail/Room');

@@ -289,6 +289,156 @@ class S {
       args: [],
     );
   }
+
+  /// `Try reload page...`
+  String get try_reload_page {
+    return Intl.message(
+      'Try reload page...',
+      name: 'try_reload_page',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter the new room name:`
+  String get enter_new_name_room {
+    return Intl.message(
+      'Enter the new room name:',
+      name: 'enter_new_name_room',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add more rooms`
+  String get add_room {
+    return Intl.message(
+      'Add more rooms',
+      name: 'add_room',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total number rooms:`
+  String get total_number_room {
+    return Intl.message(
+      'Total number rooms:',
+      name: 'total_number_room',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Maximum room:`
+  String get max_room {
+    return Intl.message(
+      'Maximum room:',
+      name: 'max_room',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `List of available rooms:`
+  String get list_room_available {
+    return Intl.message(
+      'List of available rooms:',
+      name: 'list_room_available',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change name the room`
+  String get change_name_room {
+    return Intl.message(
+      'Change name the room',
+      name: 'change_name_room',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete room`
+  String get delete_room {
+    return Intl.message(
+      'Delete room',
+      name: 'delete_room',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete`
+  String get delete {
+    return Intl.message(
+      'Delete',
+      name: 'delete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Warning`
+  String get warning {
+    return Intl.message(
+      'Warning',
+      name: 'warning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You definitely want to delete:`
+  String get are_y_want_delete {
+    return Intl.message(
+      'You definitely want to delete:',
+      name: 'are_y_want_delete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This room already exists!`
+  String get this_room_already_exists {
+    return Intl.message(
+      'This room already exists!',
+      name: 'this_room_already_exists',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Room limit reached, please upgrade service!`
+  String get room_limit_please_upgrade_service {
+    return Intl.message(
+      'Room limit reached, please upgrade service!',
+      name: 'room_limit_please_upgrade_service',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Empty!`
+  String get empty {
+    return Intl.message(
+      'Empty!',
+      name: 'empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter a new name:`
+  String get enter_new_name {
+    return Intl.message(
+      'Enter a new name:',
+      name: 'enter_new_name',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

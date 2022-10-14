@@ -26,25 +26,40 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No device installed!"),
         "No_room_installed":
             MessageLookupByLibrary.simpleMessage("No room installed!"),
+        "add_room": MessageLookupByLibrary.simpleMessage("Add more rooms"),
         "all_device": MessageLookupByLibrary.simpleMessage("All device"),
+        "are_y_want_delete": MessageLookupByLibrary.simpleMessage(
+            "You definitely want to delete:"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "change": MessageLookupByLibrary.simpleMessage("Change"),
         "change_language":
             MessageLookupByLibrary.simpleMessage("Change language"),
+        "change_name_room":
+            MessageLookupByLibrary.simpleMessage("Change name the room"),
         "click_add_device": MessageLookupByLibrary.simpleMessage(
             "Click here to add a new device!"),
         "config_device": MessageLookupByLibrary.simpleMessage("Config device"),
         "config_room": MessageLookupByLibrary.simpleMessage("config room"),
         "dashboard": MessageLookupByLibrary.simpleMessage("Dashboard"),
+        "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "delete_room": MessageLookupByLibrary.simpleMessage("Delete room"),
+        "empty": MessageLookupByLibrary.simpleMessage("Empty!"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
+        "enter_new_name":
+            MessageLookupByLibrary.simpleMessage("Enter a new name:"),
+        "enter_new_name_room":
+            MessageLookupByLibrary.simpleMessage("Enter the new room name:"),
         "good_afternoon":
             MessageLookupByLibrary.simpleMessage("Good afternoon!"),
         "good_everning": MessageLookupByLibrary.simpleMessage("Good everning!"),
         "good_morning": MessageLookupByLibrary.simpleMessage("Good morning!"),
         "language_selection":
             MessageLookupByLibrary.simpleMessage("Language selection"),
+        "list_room_available":
+            MessageLookupByLibrary.simpleMessage("List of available rooms:"),
         "log_out": MessageLookupByLibrary.simpleMessage("Log out"),
         "mailbox": MessageLookupByLibrary.simpleMessage("Mailbox"),
+        "max_room": MessageLookupByLibrary.simpleMessage("Maximum room:"),
         "no_devices_connected_to_the_room_yet":
             MessageLookupByLibrary.simpleMessage(
                 "No devices connected to the room yet!"),
@@ -52,10 +67,20 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Number installed device"),
         "number_room_installed":
             MessageLookupByLibrary.simpleMessage("Number installed Room"),
+        "room_limit_please_upgrade_service":
+            MessageLookupByLibrary.simpleMessage(
+                "Room limit reached, please upgrade service!"),
         "service_upgrade":
             MessageLookupByLibrary.simpleMessage("Service upgrade"),
+        "this_room_already_exists":
+            MessageLookupByLibrary.simpleMessage("This room already exists!"),
+        "total_number_room":
+            MessageLookupByLibrary.simpleMessage("Total number rooms:"),
+        "try_reload_page":
+            MessageLookupByLibrary.simpleMessage("Try reload page..."),
         "type_service": MessageLookupByLibrary.simpleMessage("Type service"),
         "user": MessageLookupByLibrary.simpleMessage("User"),
-        "vietnamese": MessageLookupByLibrary.simpleMessage("Vietnamese")
+        "vietnamese": MessageLookupByLibrary.simpleMessage("Vietnamese"),
+        "warning": MessageLookupByLibrary.simpleMessage("Warning")
       };
 }

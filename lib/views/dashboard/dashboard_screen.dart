@@ -81,25 +81,28 @@ class _DashBoardScreenState extends State<DashBoardScreen>
               child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       if (state is DashboardLoading) ...[
+                        const SizedBox(height: 100),
                         Center(
                           child: Column(
                             children: [
                               const CircularProgressIndicator(),
                               TextButton.icon(
-                                  onPressed: () {
-                                    context
-                                        .read<DashboardBloc>()
-                                        .add(DashboardRequest());
-                                  },
-                                  icon: const Icon(Icons.replay_outlined),
-                                  label: const Text(
-                                    "Tải lại trang...",
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w300),
-                                  ))
+                                onPressed: () {
+                                  context
+                                      .read<DashboardBloc>()
+                                      .add(DashboardRequest());
+                                },
+                                icon: const Icon(Icons.replay_outlined),
+                                label: Text(
+                                  S.of(context).try_reload_page,
+                                  style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w300),
+                                ),
+                              ),
                             ],
                           ),
                         ),

@@ -1,29 +1,28 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:smarthome_byme/generated/l10n.dart';
 
-class DialogChangeNameRoom extends StatefulWidget {
-  final String pathRoom;
-  final String nameRoom;
-  final List listRoom;
-  const DialogChangeNameRoom(
-      {Key? key,
-      required this.pathRoom,
-      required this.nameRoom,
-      required this.listRoom})
-      : super(key: key);
+class DialogChangeName extends StatefulWidget {
+  final String pathEmailRequest;
+
+  const DialogChangeName({
+    Key? key,
+    required this.pathEmailRequest,
+  }) : super(key: key);
 
   @override
-  State<DialogChangeNameRoom> createState() => _DialogChangeNameRoomState();
+  State<DialogChangeName> createState() => _DialogChangeNameState();
 }
 
-class _DialogChangeNameRoomState extends State<DialogChangeNameRoom> {
-  late String textFieldAddRoom;
+class _DialogChangeNameState extends State<DialogChangeName> {
+  late String textFieldValue;
   final _text = TextEditingController();
-  bool _validate = false;
+  late String pathInfor;
   bool _enableButton = false;
   @override
   Widget build(BuildContext context) {
+    pathInfor = "admin/${widget.pathEmailRequest}/Infor/";
     return AlertDialog(
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
@@ -35,7 +34,7 @@ class _DialogChangeNameRoomState extends State<DialogChangeNameRoom> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            S.of(context).enter_new_name_room,
+            S.of(context).enter_new_name,
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w500,
@@ -43,20 +42,18 @@ class _DialogChangeNameRoomState extends State<DialogChangeNameRoom> {
           ),
           const SizedBox(height: 10),
           TextField(
-            maxLength: 15,
+            maxLength: 16,
             controller: _text,
-            decoration: InputDecoration(
-              errorText:
-                  _validate ? S.of(context).this_room_already_exists : null,
-              errorBorder: const OutlineInputBorder(
+            decoration: const InputDecoration(
+              errorBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.redAccent),
               ),
-              border: const OutlineInputBorder(
+              border: OutlineInputBorder(
                 borderSide: BorderSide(),
               ),
             ),
             onChanged: ((value) {
-              textFieldAddRoom = value;
+              textFieldValue = value;
               if (value.isNotEmpty) {
                 setState(() {
                   _enableButton = true;
@@ -74,31 +71,15 @@ class _DialogChangeNameRoomState extends State<DialogChangeNameRoom> {
               ElevatedButton(
                 onPressed: _enableButton
                     ? () async {
-                        bool flag = false;
-                        for (int i = 0; i < widget.listRoom.length; i++) {
-                          if (widget.listRoom[i] == textFieldAddRoom) {
-                            flag = true;
-                          }
-                        }
-                        if (flag == true) {
-                          setState(() {
-                            _validate = true;
-                          });
-                        } else {
-                          setState(() {
-                            _validate = false;
-                          });
-                          FirebaseDatabase.instance
-                              .ref('${widget.pathRoom}/${widget.nameRoom}/')
-                              .remove();
-                          DatabaseReference ref =
-                              FirebaseDatabase.instance.ref(widget.pathRoom);
-                          await ref.update(
-                            {
-                              _text.text: '',
-                            },
-                          ).then((value) => Navigator.pop(context));
-                        }
+                        const storage = FlutterSecureStorage();
+                        DatabaseReference ref =
+                            FirebaseDatabase.instance.ref(pathInfor);
+                        await ref.update(
+                          {
+                            "Name": _text.text,
+                          },
+                        );
+                        await storage.write(key: "nameUser", value: _text.text);
                       }
                     : null,
                 child: Text(

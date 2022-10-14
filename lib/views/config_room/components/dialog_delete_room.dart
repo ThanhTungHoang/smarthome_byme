@@ -1,5 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:smarthome_byme/generated/l10n.dart';
 
 class DialogDeleteRoom extends StatefulWidget {
   final String pathRoom;
@@ -25,23 +26,23 @@ class _DialogDeleteRoomState extends State<DialogDeleteRoom> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "Warning!",
-            style: TextStyle(
+          Text(
+            S.of(context).warning,
+            style: const TextStyle(
               color: Colors.red,
               fontSize: 20,
               fontWeight: FontWeight.w700,
             ),
           ),
-          const Text(
-            "Are you sure you want to delete",
-            style: TextStyle(
+          Text(
+            S.of(context).are_y_want_delete,
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
             ),
           ),
           Text(
-            "the ${widget.nameRoom}?",
+            "${widget.nameRoom}?",
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
@@ -61,9 +62,9 @@ class _DialogDeleteRoomState extends State<DialogDeleteRoom> {
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.red),
                 ),
-                child: const Text(
-                  "Delete",
-                  style: TextStyle(
+                child: Text(
+                  S.of(context).delete,
+                  style: const TextStyle(
                     fontSize: 16,
                     // fontWeight: FontWeight.w500,
                   ),
@@ -77,9 +78,9 @@ class _DialogDeleteRoomState extends State<DialogDeleteRoom> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: const Text(
-                  "Cancel",
-                  style: TextStyle(
+                child: Text(
+                  S.of(context).cancel,
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                     color: Color(0xff464646),

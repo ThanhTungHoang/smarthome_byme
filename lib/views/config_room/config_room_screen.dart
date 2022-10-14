@@ -2,6 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smarthome_byme/core/router/routes.dart';
+import 'package:smarthome_byme/generated/l10n.dart';
 import 'package:smarthome_byme/views/config_room/components/dialog_change_name_room.dart';
 import 'package:smarthome_byme/views/config_room/components/dialog_delete_room.dart';
 
@@ -56,9 +57,9 @@ class _ConfigRoomScreenState extends State<ConfigRoomScreen> {
                       ),
                     ),
                     const Spacer(),
-                    const Text(
-                      'Config Room',
-                      style: TextStyle(
+                    Text(
+                      S.of(context).config_room,
+                      style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
                       ),
@@ -78,9 +79,9 @@ class _ConfigRoomScreenState extends State<ConfigRoomScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        "Enter new name room:",
-                        style: TextStyle(
+                      Text(
+                        S.of(context).enter_new_name_room,
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
                         ),
@@ -95,8 +96,9 @@ class _ConfigRoomScreenState extends State<ConfigRoomScreen> {
                               filled: true,
                               fillColor: Colors.white,
                               labelText: 'Ex: Phòng khách',
-                              errorText:
-                                  _validate ? 'Phòng này đã tổn tại!' : null,
+                              errorText: _validate
+                                  ? S.of(context).this_room_already_exists
+                                  : null,
                               errorBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Colors.redAccent,
@@ -134,9 +136,11 @@ class _ConfigRoomScreenState extends State<ConfigRoomScreen> {
                                 ? () async {
                                     if (maxCountRoom == true) {
                                       final snackBar = SnackBar(
-                                        content: const Text(
-                                          'Đã đạt giới hạn phòng, vui lòng nâng cấp gói dịch vụ!',
-                                          style: TextStyle(
+                                        content: Text(
+                                          S
+                                              .of(context)
+                                              .room_limit_please_upgrade_service,
+                                          style: const TextStyle(
                                             color: Colors.red,
                                             fontSize: 18,
                                             fontWeight: FontWeight.w600,
@@ -180,9 +184,9 @@ class _ConfigRoomScreenState extends State<ConfigRoomScreen> {
                                     }
                                   }
                                 : null,
-                            child: const Text(
-                              "Thêm phòng",
-                              style: TextStyle(
+                            child: Text(
+                              S.of(context).add_room,
+                              style: const TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -229,7 +233,7 @@ class _ConfigRoomScreenState extends State<ConfigRoomScreen> {
                         maxCountRoom = false;
                       }
                       return Text(
-                        "Tổng số phòng: $countRoom",
+                        "${S.of(context).total_number_room} $countRoom",
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
@@ -237,7 +241,7 @@ class _ConfigRoomScreenState extends State<ConfigRoomScreen> {
                       );
                     }
                     return const Text(
-                      "Tổng số phòng: Loading...",
+                      "Loading...",
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
@@ -246,36 +250,36 @@ class _ConfigRoomScreenState extends State<ConfigRoomScreen> {
                   },
                 ),
                 if (widget.typeUser == "Test User") ...[
-                  const Text(
-                    "Khả dụng: 3",
-                    style: TextStyle(
+                  Text(
+                    "${S.of(context).max_room} 3",
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
                 ],
                 if (widget.typeUser == "Family") ...[
-                  const Text(
-                    "Khả dụng: 10",
-                    style: TextStyle(
+                  Text(
+                    "${S.of(context).max_room} 10",
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
                 ],
                 if (widget.typeUser == "Enterprise") ...[
-                  const Text(
-                    "Khả dụng: 100",
-                    style: TextStyle(
+                  Text(
+                    "${S.of(context).max_room} 100",
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
                 ],
                 if (widget.typeUser == "Unlimited") ...[
-                  const Text(
-                    "Khả dụng: Unlimited",
-                    style: TextStyle(
+                  Text(
+                    "${S.of(context).max_room} Unlimited",
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
                     ),
@@ -285,14 +289,12 @@ class _ConfigRoomScreenState extends State<ConfigRoomScreen> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsets.all(5.0),
-                  // decoration:
-                  //     BoxDecoration(border: Border.all(color: Colors.black45)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        "List rooms available:",
-                        style: TextStyle(
+                      Text(
+                        S.of(context).list_room_available,
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
                         ),
@@ -321,10 +323,10 @@ class _ConfigRoomScreenState extends State<ConfigRoomScreen> {
                                   listRoom.clear();
                                 }
                                 if (listRoom.isEmpty) {
-                                  return const Center(
+                                  return Center(
                                       child: Text(
-                                    "Empty! ",
-                                    style: TextStyle(
+                                    S.of(context).empty,
+                                    style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -360,8 +362,9 @@ class _ConfigRoomScreenState extends State<ConfigRoomScreen> {
                                               itemBuilder: (BuildContext cxt) =>
                                                   [
                                                 PopupMenuItem(
-                                                  child: const Text(
-                                                      "Change name room"),
+                                                  child: Text(S
+                                                      .of(context)
+                                                      .change_name_room),
                                                   onTap: () {
                                                     Future.delayed(
                                                       const Duration(
@@ -382,8 +385,9 @@ class _ConfigRoomScreenState extends State<ConfigRoomScreen> {
                                                   },
                                                 ),
                                                 PopupMenuItem(
-                                                  child:
-                                                      const Text("Delete room"),
+                                                  child: Text(S
+                                                      .of(context)
+                                                      .delete_room),
                                                   onTap: () {
                                                     Future.delayed(
                                                       const Duration(
