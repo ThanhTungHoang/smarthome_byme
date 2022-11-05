@@ -110,42 +110,55 @@ class _ConfigDeviceScreenState extends State<ConfigDeviceScreen> {
                       .onValue
                       .asBroadcastStream(),
                   builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      final device = (snapshot.data!).snapshot.value
-                          as Map<dynamic, dynamic>;
-                      int countDevice = device.keys.length;
-                      if (widget.typeUser == "Test User") {
-                        if (countDevice >= 3) {
-                          maxCountDevice = true;
-                        } else {
+                    // print("olalalala");
+                    try {
+                      if (snapshot.hasData) {
+                        final device = (snapshot.data!).snapshot.value
+                            as Map<dynamic, dynamic>;
+                        int countDevice = device.keys.length;
+                        if (widget.typeUser == "Test User") {
+                          if (countDevice >= 3) {
+                            maxCountDevice = true;
+                          } else {
+                            maxCountDevice = false;
+                          }
+                        }
+                        if (widget.typeUser == "Family") {
+                          if (countDevice >= 10) {
+                            maxCountDevice = true;
+                          } else {
+                            maxCountDevice = false;
+                          }
+                        }
+                        if (widget.typeUser == "Enterprise") {
+                          if (countDevice >= 100) {
+                            maxCountDevice = true;
+                          } else {
+                            maxCountDevice = false;
+                          }
+                        }
+                        if (widget.typeUser == "Unlimited") {
                           maxCountDevice = false;
                         }
+                        return Text(
+                          "Tổng số thiết bị: $countDevice",
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        );
                       }
-                      if (widget.typeUser == "Family") {
-                        if (countDevice >= 10) {
-                          maxCountDevice = true;
-                        } else {
-                          maxCountDevice = false;
-                        }
-                      }
-                      if (widget.typeUser == "Enterprise") {
-                        if (countDevice >= 100) {
-                          maxCountDevice = true;
-                        } else {
-                          maxCountDevice = false;
-                        }
-                      }
-                      if (widget.typeUser == "Unlimited") {
-                        maxCountDevice = false;
-                      }
-                      return Text(
-                        "Tổng số thiết bị: $countDevice",
-                        style: const TextStyle(
+                    } catch (e) {
+                      // print("eeeeeeeeeeeeeee");
+                      return const Text(
+                        "Tổng số thiết bị: 0",
+                        style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
                         ),
                       );
                     }
+              
                     return const Text(
                       "Tổng số thiết bị: Loading...",
                       style: TextStyle(

@@ -240,88 +240,114 @@ class _TopUserState extends State<TopUser> {
                       .onValue
                       .asBroadcastStream(),
                   builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      final device = (snapshot.data!).snapshot.value
-                          as Map<dynamic, dynamic>;
+                    try {
+                      if (snapshot.hasData) {
+                        final device = (snapshot.data!).snapshot.value
+                            as Map<dynamic, dynamic>;
 
-                      String countDevice = device.keys.length.toString();
-                      if (widget.typeUser == "Test User") {
-                        return Text.rich(
-                          TextSpan(
-                            text: S.of(context).number_device_installed,
-                            style: const TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w300),
-                            children: <InlineSpan>[
-                              const TextSpan(
-                                text: ": ",
-                              ),
-                              TextSpan(
-                                text: "$countDevice /3",
-                                style: const TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.w300),
-                              )
-                            ],
-                          ),
-                        );
+                        String countDevice = device.keys.length.toString();
+                        if (widget.typeUser == "Test User") {
+                          return Text.rich(
+                            TextSpan(
+                              text: S.of(context).number_device_installed,
+                              style: const TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.w300),
+                              children: <InlineSpan>[
+                                const TextSpan(
+                                  text: ": ",
+                                ),
+                                TextSpan(
+                                  text: "$countDevice /3",
+                                  style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w300),
+                                )
+                              ],
+                            ),
+                          );
+                        }
+                        if (widget.typeUser == "Family") {
+                          return Text.rich(
+                            TextSpan(
+                              text: S.of(context).number_device_installed,
+                              style: const TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.w300),
+                              children: <InlineSpan>[
+                                const TextSpan(
+                                  text: ": ",
+                                ),
+                                TextSpan(
+                                  text: "$countDevice /10",
+                                  style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w300),
+                                )
+                              ],
+                            ),
+                          );
+                        }
+                        if (widget.typeUser == "Enterprise") {
+                          return Text.rich(
+                            TextSpan(
+                              text: S.of(context).number_device_installed,
+                              style: const TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.w300),
+                              children: <InlineSpan>[
+                                const TextSpan(
+                                  text: ": ",
+                                ),
+                                TextSpan(
+                                  text: "$countDevice /100",
+                                  style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w300),
+                                )
+                              ],
+                            ),
+                          );
+                        }
+                        if (widget.typeUser == "Unlimited") {
+                          return Text.rich(
+                            TextSpan(
+                              text: S.of(context).number_device_installed,
+                              style: const TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.w300),
+                              children: <InlineSpan>[
+                                const TextSpan(
+                                  text: ": ",
+                                ),
+                                TextSpan(
+                                  text: "$countDevice /Unlimited",
+                                  style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w300),
+                                )
+                              ],
+                            ),
+                          );
+                        }
                       }
-                      if (widget.typeUser == "Family") {
-                        return Text.rich(
-                          TextSpan(
-                            text: S.of(context).number_device_installed,
-                            style: const TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w300),
-                            children: <InlineSpan>[
-                              const TextSpan(
-                                text: ": ",
-                              ),
-                              TextSpan(
-                                text: "$countDevice /10",
-                                style: const TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.w300),
-                              )
-                            ],
-                          ),
-                        );
-                      }
-                      if (widget.typeUser == "Enterprise") {
-                        return Text.rich(
-                          TextSpan(
-                            text: S.of(context).number_device_installed,
-                            style: const TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w300),
-                            children: <InlineSpan>[
-                              const TextSpan(
-                                text: ": ",
-                              ),
-                              TextSpan(
-                                text: "$countDevice /100",
-                                style: const TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.w300),
-                              )
-                            ],
-                          ),
-                        );
-                      }
-                      if (widget.typeUser == "Unlimited") {
-                        return Text.rich(
-                          TextSpan(
-                            text: S.of(context).number_device_installed,
-                            style: const TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w300),
-                            children: <InlineSpan>[
-                              const TextSpan(
-                                text: ": ",
-                              ),
-                              TextSpan(
-                                text: "$countDevice /Unlimited",
-                                style: const TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.w300),
-                              )
-                            ],
-                          ),
-                        );
-                      }
+                    } catch (e) {
+                      return Text.rich(
+                        TextSpan(
+                          text: S.of(context).number_device_installed,
+                          style: const TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.w300),
+                          children: const <InlineSpan>[
+                            TextSpan(
+                              text: ": ",
+                            ),
+                            TextSpan(
+                              text: "0",
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.w300),
+                            )
+                          ],
+                        ),
+                      );
                     }
+                    
+
                     return const Text(
                       "Loading...",
                       style:

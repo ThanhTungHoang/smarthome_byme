@@ -1,9 +1,6 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:smarthome_byme/views/dashboard/components_main/body_main.dart';
 import 'package:smarthome_byme/views/dashboard/components_main/top_main.dart';
-import '../../../core/router/routes.dart';
 
 class DashBoardPageMain extends StatefulWidget {
   final String pathEmailRequest;
@@ -55,45 +52,6 @@ class _DashBoardPageMainState extends State<DashBoardPageMain>
           pathEmailRequest: widget.pathEmailRequest,
           typeUser: widget.typeUser,
         ),
-        ElevatedButton(
-          onPressed: () async {
-            DatabaseReference ref = FirebaseDatabase.instance.ref(pathDevice);
-
-            await ref.update(
-              {
-                "123Device": {
-                  "typeDevice": "Switch",
-                  "nameDevice": "Cong tac",
-                  "ping": 3,
-                  "toggle": true,
-                  "idDevice": "123Device",
-                  "lock": "",
-                  "temp": "",
-                  "humi": "",
-                  "co2": "",
-                  "red": "",
-                  "green": "",
-                  "blue": "",
-                  "voltage": "",
-                  "ampe": "",
-                  "wat": "",
-                  "room": "",
-                }
-              },
-            );
-          },
-          child: const Text("fake device"),
-        ),
-        ElevatedButton(
-            onPressed: () {
-              GoRouter.of(context).pushNamed(
-                RouteNames.configDevice,
-                queryParams: {
-                  "pathEmailRequest": widget.pathEmailRequest,
-                },
-              );
-            },
-            child: const Text("add device")),
       ],
     );
   }

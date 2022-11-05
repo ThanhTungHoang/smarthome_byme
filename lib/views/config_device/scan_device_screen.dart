@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ripple/flutter_ripple.dart';
 import 'package:go_router/go_router.dart';
@@ -421,12 +422,28 @@ class _ScanDeviceScreenState extends State<ScanDeviceScreen> {
                               fontWeight: FontWeight.w500,
                             ),
                           ),
+                          const Text(
+                            'Yêu cầu thoát ứng dụng',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const Text(
+                            'để cập nhập lại',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                           ElevatedButton(
                             onPressed: () {
                               GoRouter.of(context)
                                   .goNamed(RouteNames.dashBoard);
+                              SystemNavigator.pop();
                             },
-                            child: const Text("Trở về màn hình chính"),
+                            // child: const Text("Trở về màn hình chính"),
+                            child: const Text("Thoát ứng dụng"),
                           ),
                         ],
                       ),

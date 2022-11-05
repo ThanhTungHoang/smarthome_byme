@@ -171,6 +171,7 @@ class _CardDeviceState extends State<CardDevice> {
                       context: context,
                       builder: (context) => DialogDeleteDevice(
                         pathDevice: pathDevice,
+                        idDevice: widget.idDevice,
                       ),
                     );
                   },

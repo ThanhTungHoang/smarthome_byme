@@ -117,8 +117,8 @@ class _BodyMainState extends State<BodyMain> {
                             child: Column(
                               children: [
                                 Text(
-                                  S.of(context).number_device_installed,
-                                  style: TextStyle(
+                                  S.of(context).No_device_installed,
+                                  style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w400),
                                 ),
@@ -134,7 +134,7 @@ class _BodyMainState extends State<BodyMain> {
                                   },
                                   child: Text(
                                     S.of(context).click_add_device,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.w400),
                                   ),
@@ -202,6 +202,35 @@ class _BodyMainState extends State<BodyMain> {
                             queryParams: {
                               "pathEmailRequest": widget.pathEmailRequest,
                               "typeUser": widget.typeUser,
+                            },
+                          );
+                        },
+                      ),
+                      PopupMenuItem(
+                        child: const Text("[Fake device]"),
+                        onTap: () async {
+                          DatabaseReference ref =
+                              FirebaseDatabase.instance.ref(pathDevice);
+                          await ref.update(
+                            {
+                              "123Device": {
+                                "typeDevice": "Switch",
+                                "nameDevice": "Device fake",
+                                "ping": 3,
+                                "toggle": true,
+                                "idDevice": "123Device",
+                                "lock": "",
+                                "temp": "",
+                                "humi": "",
+                                "co2": "",
+                                "red": "",
+                                "green": "",
+                                "blue": "",
+                                "voltage": "",
+                                "ampe": "",
+                                "wat": "",
+                                "room": "",
+                              }
                             },
                           );
                         },

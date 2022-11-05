@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 
 class DialogDeleteDevice extends StatefulWidget {
   final String pathDevice;
-  const DialogDeleteDevice({super.key, required this.pathDevice});
+  final String idDevice;
+  const DialogDeleteDevice(
+      {super.key, required this.pathDevice, required this.idDevice});
 
   @override
   State<DialogDeleteDevice> createState() => _DialogDeleteDeviceState();
@@ -36,7 +38,7 @@ class _DialogDeleteDeviceState extends State<DialogDeleteDevice> {
               OutlinedButton(
                 onPressed: () async {
                   DatabaseReference ref =
-                      FirebaseDatabase.instance.ref(widget.pathDevice);
+                      FirebaseDatabase.instance.ref("${widget.pathDevice}/${widget.idDevice}/");
                   await ref.remove();
                   if (!mounted) return;
                   Navigator.pop(context);

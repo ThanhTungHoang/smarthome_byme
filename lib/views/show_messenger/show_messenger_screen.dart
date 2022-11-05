@@ -127,7 +127,7 @@ class _ShowMessengerScreenState extends State<ShowMessengerScreen> {
                                           },
                                         );
                                       },
-                                      child: Icon(Icons.done_all)),
+                                      child: const Icon(Icons.done_all)),
                                 ],
                                 if (listMessenger[index].seen == false) ...[
                                   TextButton(
